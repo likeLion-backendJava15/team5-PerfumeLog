@@ -59,7 +59,7 @@
     <tr>
       <td align="center"><a href="https://github.com/catapillar0505"><img src="https://avatars.githubusercontent.com/u/62907792?v=4"
 width="100px;" alt=""/><br /><sub><b>김진아</b></sub></a><br /></td>
-      <td align="center"><a href=""><img src="" width="100px;" alt=""/><br /><sub><b>신드보라</b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/dokdokee"><img src="https://avatars.githubusercontent.com/u/203818385?v=4" width="100px;" alt=""/><br /><sub><b>신드보라</b></sub></a><br /></td>
       <td align="center"><a href="https://github.com/sunhyun0508"><img src=https://avatars.githubusercontent.com/u/200905713?v=4"" width="100px;" alt=""/><br /><sub><b>윤선현</b></sub></a><br /></td>
       <td align="center"><a href="https://github.com/ghkdWkrqor"><img src="https://avatars.githubusercontent.com/u/106655707?v=4" width="100px;" alt=""/><br /><sub><b>윤형일</b></sub></a><br /></td>
 <td align="center"><a href="https://github.com/petite-coder"><img src="https://avatars.githubusercontent.com/u/156408029?v=4" width="100px;" alt=""/><br /><sub><b>이예은</b></sub></a><br /></td>
