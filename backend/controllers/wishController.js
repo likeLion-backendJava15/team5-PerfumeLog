@@ -19,9 +19,13 @@ const WishController = {
       const newWish = await WishModel.addWish(userId, productId);
       res.status(201).json(new WishDTO(newWish));
     } catch (err) {
+      if (err.message === '이미 찜한 제품입니다.') {
+        return res.status(400).json({ error: err.message });
+      }
       res.status(500).json({ error: '서버 오류' });
     }
   },
+  
 
   async deleteWish(req, res) {
     try {
