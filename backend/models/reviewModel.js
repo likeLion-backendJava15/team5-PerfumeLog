@@ -9,3 +9,24 @@ exports.getAllReviewsByProductid = async (product_id) => {
         [product_id]
   );
 };
+
+// 리뷰 생성
+exports.createReview = async (review) => {
+    const { user_id, product_id, rating, longevity, sillage, gender, content } = review;
+    console.log("모델로 전달된 데이터:", review);
+    
+    try {
+    const [result] = await db.query(
+      `
+            INSERT INTO REVIEW (user_id, product_id, rating, longevity, sillage, gender, content, created_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, NOW())
+          `,
+      [user_id, product_id, rating, longevity, sillage, gender, content]
+    );
+    console.log("✅ 삽입 성공:", result);
+    return result;
+  } catch (err) {
+    console.error('DB 리뷰 삽입 오류:', err);
+    throw err;
+  }
+};
