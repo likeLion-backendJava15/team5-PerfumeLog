@@ -26,7 +26,7 @@ exports.getProductsByNote = async (req, res) => {
     const result = products.map(noteDTO.productToDTO);
     res.status(200).json(result);
   } catch (err) {
-    console.error('제품 필터링 실패:', err);  // ✅ 여기도 정확한 위치 로그
+    console.error('제품 필터링 실패:', err);
     res.status(500).json({ message: '제품 필터링 실패' });
   }
 };
