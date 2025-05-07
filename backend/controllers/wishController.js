@@ -9,6 +9,7 @@ const WishController = {
       const wishDTOs = wishes.map(w => new WishDTO(w));
       res.json(wishDTOs);
     } catch (err) {
+      console.error(err);
       res.status(500).json({ error: '서버 오류' });
     }
   },
@@ -17,15 +18,12 @@ const WishController = {
     try {
       const { userId, productId } = req.body;
       const newWish = await WishModel.addWish(userId, productId);
-      res.status(201).json(new WishDTO(newWish));
+      res.status(201).json(newWish);
     } catch (err) {
-      if (err.message === '이미 찜한 제품입니다.') {
-        return res.status(400).json({ error: err.message });
-      }
-      res.status(500).json({ error: '서버 오류' });
+      console.error(err);
+      res.status(500).json({ error: err });
     }
   },
-  
 
   async deleteWish(req, res) {
     try {
@@ -33,9 +31,10 @@ const WishController = {
       await WishModel.removeWish(userId, productId);
       res.status(204).end();
     } catch (err) {
+      console.error(err);
       res.status(500).json({ error: '서버 오류' });
     }
-  },
+  }
 };
 
 module.exports = WishController;
