@@ -42,3 +42,36 @@ exports.deleteReview = async (reviewId, userId) => {
   );
   return result.affectedRows > 0;
 };
+
+// 리뷰 통계
+exports.getReviewStatsByProductId = async (productId) => {
+    const [rows] = await db.query(
+      `
+        SELECT
+          ROUND(AVG(rating), 2) AS avg_rating,
+          COUNT(*) AS total_reviews,
+          ROUND(AVG(CASE longevity
+            WHEN '매우약함' THEN 1 
+            WHEN '약함' THEN 2 
+            WHEN '중간' THEN 3
+            WHEN '강함' THEN 4 
+            WHEN '아주강함' THEN 5 
+            ELSE NULL END), 1) AS avg_longevity,
+          ROUND(AVG(CASE sillage
+            WHEN '매우약함' THEN 1 
+            WHEN '약함' THEN 2 
+            WHEN '중간' THEN 3
+            WHEN '강함' THEN 4 
+            WHEN '아주강함' THEN 5 
+            ELSE NULL END), 1) AS avg_sillage,
+          (SELECT gender FROM REVIEW WHERE product_id = ? 
+          GROUP BY gender ORDER BY COUNT(*) 
+          DESC LIMIT 1) AS majority_gender
+        FROM REVIEW
+        WHERE product_id = ?
+      `,
+      [productId, productId]
+    );
+  
+    return rows[0];
+  };
