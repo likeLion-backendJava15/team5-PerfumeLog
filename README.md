@@ -4,7 +4,7 @@
 <img src="https://yennies.notion.site/image/attachment%3A6fa24add-2514-4e5f-aa44-9d0348f9a3c6%3Alogo1.png?table=block&id=1dd38212-968b-80f9-bfbe-c34242c5cc92&spaceId=937e129d-9aca-46d3-86d9-97391bcf515f&width=1100&userId=&cache=v2" width="200px">
 </p>
 
-> 사용자 리뷰 기반 향수 추천 및 커뮤니티 플랫폼
+> 사용자 리뷰 기반 향수 정보 공유 플랫폼
 
 ---
 
@@ -37,15 +37,13 @@
 <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white"> <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=black">
 <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=HTML5&logoColor=white">
 <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=CSS3&logoColor=white">
+<img src="https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white">
 
 ### 🧩 Backend
-<img src="https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white"> <img src="https://img.shields.io/badge/JDBC-336791?style=for-the-badge&logo=Databricks&logoColor=white">
+<img src="https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white"> 
 
 ### 🗃️ Database
 <img src="https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white">
-
-### 🖥️ Admin UI
-<img src="https://img.shields.io/badge/javafx-%23FF0000.svg?style=for-the-badge&logo=javafx&logoColor=white">
 
 ### 🛠 Version Control & Collaboration
 <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white"> <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white">
@@ -70,3 +68,23 @@ width="100px;" alt=""/><br /><sub><b>김진아</b></sub></a><br /></td>
 
 ---
 
+## 🚀 실행 방법
+
+### 1. 환경 변수 설정
+
+각 폴더에 `.env` 파일을 생성하고 `.env.example` 참고하여 값을 입력하세요.
+
+### 2. 백엔드 실행
+
+```bash
+cd backend
+npm install
+npm start
+```
+
+### 3. 프론트엔드 실행
+```bash
+cd frontend
+npm install
+npm start
+```
