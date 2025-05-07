@@ -67,3 +67,13 @@ exports.deleteReview = async (req, res) => {
     res.status(500).json({ error: '리뷰 삭제 실패' });
   }
 };
+
+// 리뷰 통계 조회
+exports.getReviewStats = async (req, res) => {
+  try {
+    const stats = await reviewModel.getReviewStatsByProductId(req.params.productId);
+    res.json(toStatsDTO(stats));
+  } catch (err) {
+    res.status(500).json({ error: '리뷰 통계 조회 실패' });
+  }
+};
