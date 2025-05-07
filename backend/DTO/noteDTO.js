@@ -1,15 +1,19 @@
-// 노트 정보를 DTO로 변환
-const noteToDTO = (note) => ({
-    id: note.id,
-    name: note.name,
-  });
+// backend/DTO/noteDTO.js
+
+exports.noteToDTO = (note) => {
+    return {
+      id: note.id,
+      name: note.name,
+    };
+  };
   
-  // 제품 정보를 DTO로 변환
-  const productToDTO = (product) => ({
-    id: product.product_id,
-    name: product.name,
-    brand: product.brand,
-    image_url: product.image_url,
-    price: product.price,
-  });
+  exports.productToDTO = (product) => {
+    return {
+      id: product.product_id,
+      name: product.name,
+      brand: product.brand,
+      imageUrl: product.image_url,
+      price: product.price,
+    };
+  };
   

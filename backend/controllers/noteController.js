@@ -8,6 +8,7 @@ exports.getAllNotes = async (req, res) => {
     const result = notes.map(noteDTO.noteToDTO);
     res.status(200).json(result);
   } catch (err) {
+    console.error('노트 목록 조회 실패:', err);  
     res.status(500).json({ message: '노트 목록 조회 실패' });
   }
 };
@@ -25,6 +26,7 @@ exports.getProductsByNote = async (req, res) => {
     const result = products.map(noteDTO.productToDTO);
     res.status(200).json(result);
   } catch (err) {
+    console.error('제품 필터링 실패:', err);  // ✅ 여기도 정확한 위치 로그
     res.status(500).json({ message: '제품 필터링 실패' });
   }
 };
