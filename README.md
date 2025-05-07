@@ -4,7 +4,7 @@
 <img src="https://yennies.notion.site/image/attachment%3A6fa24add-2514-4e5f-aa44-9d0348f9a3c6%3Alogo1.png?table=block&id=1dd38212-968b-80f9-bfbe-c34242c5cc92&spaceId=937e129d-9aca-46d3-86d9-97391bcf515f&width=1100&userId=&cache=v2" width="200px">
 </p>
 
-> 사용자 리뷰 기반 향수 추천 및 커뮤니티 플랫폼
+> 사용자 리뷰 기반 향수 정보 공유 플랫폼
 
 ---
 
@@ -68,3 +68,23 @@ width="100px;" alt=""/><br /><sub><b>김진아</b></sub></a><br /></td>
 
 ---
 
+## 🚀 실행 방법
+
+### 1. 환경 변수 설정
+
+각 폴더에 `.env` 파일을 생성하고 `.env.example` 참고하여 값을 입력하세요.
+
+### 2. 백엔드 실행
+
+```bash
+cd backend
+npm install
+npm start
+```
+
+### 3. 프론트엔드 실행
+```bash
+cd frontend
+npm install
+npm start
+```
