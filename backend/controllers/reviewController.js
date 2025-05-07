@@ -14,45 +14,16 @@ exports.getReviews = async (req, res) => {
 };
 
 // 리뷰 생성
-exports.createReview = async (review) => {
-  const { user_id, product_id, rating, longevity, sillage, gender, content } = review;
-  console.log("모델로 전달된 데이터:", review);
-  
+exports.createReview = async (req, res) => {
   try {
-  const [result] = await db.query(
-    `
-          INSERT INTO REVIEW (user_id, product_id, rating, longevity, sillage, gender, content, created_at)
-          VALUES (?, ?, ?, ?, ?, ?, ?, NOW())
-        `,
-    [user_id, product_id, rating, longevity, sillage, gender, content]
-  );
-  console.log("✅ 삽입 성공:", result);
-  return result;
-} catch (err) {
-  console.error('DB 리뷰 삽입 오류:', err);
-  throw err;
-}
-};
+    const result = await reviewModel.createReview(req.body);
 
-// 리뷰 생성
-exports.createReview = async (review) => {
-  const { user_id, product_id, rating, longevity, sillage, gender, content } = review;
-  console.log("모델로 전달된 데이터:", review);
-  
-  try {
-  const [result] = await db.query(
-    `
-          INSERT INTO REVIEW (user_id, product_id, rating, longevity, sillage, gender, content, created_at)
-          VALUES (?, ?, ?, ?, ?, ?, ?, NOW())
-        `,
-    [user_id, product_id, rating, longevity, sillage, gender, content]
-  );
-  console.log("✅ 삽입 성공:", result);
-  return result;
-} catch (err) {
-  console.error('DB 리뷰 삽입 오류:', err);
-  throw err;
-}
+    console.log("✅ 리뷰 등록 성공:", result);
+    res.status(201).json({ id: result.insertId });
+    } catch (err) {
+      console.error("❌ 리뷰 등록 중 컨트롤러 오류:", err);
+      res.status(500).json({ error: '리뷰 등록 실패', detail: err.message });
+    }
 };
 
 // 리뷰 삭제
@@ -77,3 +48,28 @@ exports.getReviewStats = async (req, res) => {
     res.status(500).json({ error: '리뷰 통계 조회 실패' });
   }
 };
+
+// 리뷰 수정
+exports.updateReview = async (req, res) => {
+  try {
+    const reviewId = req.params.reviewId;
+    const userId = req.params.userId;
+
+    const { rating, longevity, sillage, gender, content } = req.body;
+
+    const result = await reviewModel.updateReview({
+      review_id: reviewId,
+      user_id: userId,
+      rating,
+      longevity,
+      sillage,
+      gender,
+      content,
+    });
+
+    res.status(200).json({ message: '리뷰 수정 완료' });
+
+  } catch (err) {
+
+  }
+}
