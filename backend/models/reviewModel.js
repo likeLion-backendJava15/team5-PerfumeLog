@@ -1,14 +1,36 @@
 const db = require("../config/db");
 
 // 리뷰 조회
-exports.getAllReviewsByProductid = async (product_id) => {
-  return db.query(
-    `SELECT * FROM REVIEW
-        WHERE product_id=?
-        ORDER BY created_at DESC`,
-    [product_id]
-  );
-};
+exports.getAllReviewsByProductid = async (product_id, sort = 'recent') => {
+    let joinClause = '';
+    let selectClause = 'r.*';
+    let groupClause = '';
+    let orderClause = '';
+  
+    if (sort === 'likes') {
+      joinClause = 'LEFT JOIN REVIEW_LIKE rl ON r.id = rl.review_id';
+      selectClause = 'r.*, COUNT(rl.id) AS like_count';
+      groupClause = 'GROUP BY r.id';
+      orderClause = 'ORDER BY like_count DESC, r.created_at DESC';
+    } else if (sort === 'oldest') {
+      orderClause = 'ORDER BY r.created_at ASC';
+    } else {
+      // 기본 = 최신순
+      orderClause = 'ORDER BY r.created_at DESC';
+    }
+  
+    const query = `
+      SELECT ${selectClause}
+      FROM REVIEW r
+      ${joinClause}
+      WHERE r.product_id = ?
+      ${groupClause}
+      ${orderClause}
+    `;
+  
+    return db.query(query, [product_id]);
+  };  
+  
 
 // 리뷰 생성
 exports.createReview = async (review) => {
