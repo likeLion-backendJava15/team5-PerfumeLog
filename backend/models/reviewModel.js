@@ -45,8 +45,8 @@ exports.deleteReview = async (reviewId, userId) => {
 
 // 리뷰 통계
 exports.getReviewStatsByProductId = async (productId) => {
-    const [rows] = await db.query(
-      `
+  const [rows] = await db.query(
+    `
         SELECT
           ROUND(AVG(rating), 2) AS avg_rating,
           COUNT(*) AS total_reviews,
@@ -70,8 +70,30 @@ exports.getReviewStatsByProductId = async (productId) => {
         FROM REVIEW
         WHERE product_id = ?
       `,
-      [productId, productId]
-    );
-  
-    return rows[0];
-  };
+    [productId, productId]
+  );
+
+  return rows[0];
+};
+
+// 리뷰 수정
+exports.updateReview = async (data) => {
+  const { review_id, user_id, rating, longevity, sillage, gender, content } =
+    data;
+
+  const [result] = await db.query(
+    `
+      UPDATE REVIEW
+      SET
+        rating = ?,
+        longevity = ?,
+        sillage = ?,
+        gender = ?,
+        content = ?
+      WHERE id = ? AND user_id = ?
+    `,
+    [rating, longevity, sillage, gender, content, review_id, user_id]
+  );
+
+  return result;
+};
