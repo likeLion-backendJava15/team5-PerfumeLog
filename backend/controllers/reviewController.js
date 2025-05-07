@@ -54,3 +54,16 @@ exports.createReview = async (review) => {
   throw err;
 }
 };
+
+// 리뷰 삭제
+exports.deleteReview = async (req, res) => {
+  const reviewId = req.params.reviewId;
+  const userId = req.params.userId;
+  try {
+    const result = await reviewModel.deleteReview(reviewId, userId);
+    res.status(200).json({ message: '삭제 완료' });
+  } catch (err) {
+    console.error("❌ 리뷰 삭제 오류:", err);
+    res.status(500).json({ error: '리뷰 삭제 실패' });
+  }
+};
