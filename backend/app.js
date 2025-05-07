@@ -12,12 +12,12 @@ app.get('/', (req, res) => {
 });
 
 // 라우터 연결
-app.use('/api/users', require('./routes/userRoutes'));
-app.use('/api/products', require('./routes/productRoutes'));
-app.use('/api/notes', require('./routes/noteRoutes'));
-app.use('/api/product-notes', require('./routes/productNoteRoutes'));
-app.use('/api/reviews', require('./routes/reviewRoutes'));
-app.use('/api/wishes', require('./routes/wishRoutes'));
+// app.use('/api/users', require('./routes/userRoutes'));
+// app.use('/api/products', require('./routes/productRoutes'));
+// app.use('/api/notes', require('./routes/noteRoutes'));
+// app.use('/api/product-notes', require('./routes/productNoteRoutes'));
+// app.use('/api/reviews', require('./routes/reviewRoutes'));
+// app.use('/api/wishes', require('./routes/wishRoutes'));
 app.use('/api/review-likes', require('./routes/reviewLikeRoutes'));
 
 const PORT = process.env.PORT || 5000;
