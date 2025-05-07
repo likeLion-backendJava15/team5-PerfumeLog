@@ -5,14 +5,17 @@ const { toReviewDTO, toStatsDTO } = require("../DTO/reviewDTO"); //dto
 exports.getReviews = async (req, res) => {
   try {
     const productId = req.params.productId;
-    const sort = req.query.sort || 'recent';
+    const sort = req.query.sort || "recent";
 
-    const [reviews] = await reviewModel.getAllReviewsByProductid(productId, sort);
+    const [reviews] = await reviewModel.getAllReviewsByProductid(
+      productId,
+      sort
+    );
     const dto = reviews.map(toReviewDTO);
     console.log("조회 결과:", dto);
     res.status(200).json(dto);
   } catch (err) {
-    console.error('❌ 리뷰 조회 실패:', err);
+    console.error("❌ 리뷰 조회 실패:", err);
     res.status(500).json({ error: "리뷰 조회 실패" });
   }
 };
@@ -74,5 +77,8 @@ exports.updateReview = async (req, res) => {
     });
 
     res.status(200).json({ message: "리뷰 수정 완료" });
-  } catch (err) {}
+  } catch (err) {
+    console.error("❌ 리뷰 수정 오류:", err);
+    res.status(500).json({ error: "리뷰 수정 실패" });
+  }
 };
