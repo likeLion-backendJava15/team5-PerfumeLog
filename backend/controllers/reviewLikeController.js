@@ -5,6 +5,9 @@ exports.toggleLike = async (req, res) => {
   const { reviewId } = req.params;
   const { user_id } = req.body;
 
+  console.log("toggleLike 요청:", { reviewId, user_id });
+  console.log("토글 요청:", user_id, reviewId);
+  
   try {
     const isLiked = await reviewLikeModel.checkIfLiked(user_id, reviewId);
 
