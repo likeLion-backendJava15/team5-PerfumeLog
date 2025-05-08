@@ -73,7 +73,12 @@ function ProductDetail({ product, notes, toggleLike, isLiked }) {
 
       <div className="mt-3">
         {activeTab === 'info' ? (
-          <div>상품 정보 내용</div>
+          <div>
+            <img 
+              src={product.imageUrl}
+              alt={product.name}
+            />
+          </div>
         ) : (
           <div>리뷰 내용</div>
         )}
