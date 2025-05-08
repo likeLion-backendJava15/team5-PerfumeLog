@@ -1,13 +1,84 @@
-const reviewModel = require('../models/reviewModel'); // dao
-const { toReviewDTO, toStatsDTO } = require('../DTO/reviewDTO');  //dto
+const reviewModel = require("../models/reviewModel"); // dao
+const { toReviewDTO, toStatsDTO } = require("../DTO/reviewDTO"); //dto
 
+// 리뷰 조회
 exports.getReviews = async (req, res) => {
-    try {
-        const [reviews] = await reviewModel.getAllReviewsByProductid(req.params.productId);
-        const dto = reviews.map(toReviewDTO);
-        console.log('조회 결과:', dto);
-        res.json(dto);
-      } catch (err) {
-        res.status(500).json({ error: '리뷰 조회 실패' });
-      }
+  try {
+    const productId = req.params.productId;
+    const sort = req.query.sort || "recent";
+
+    const [reviews] = await reviewModel.getAllReviewsByProductid(
+      productId,
+      sort
+    );
+    const dto = reviews.map(toReviewDTO);
+    console.log("조회 결과:", dto);
+    res.status(200).json(dto);
+  } catch (err) {
+    console.error("❌ 리뷰 조회 실패:", err);
+    res.status(500).json({ error: "리뷰 조회 실패" });
+  }
+};
+
+// 리뷰 생성
+exports.createReview = async (req, res) => {
+  try {
+    const result = await reviewModel.createReview(req.body);
+
+    console.log("✅ 리뷰 등록 성공:", result);
+    res.status(201).json({ id: result.insertId });
+  } catch (err) {
+    console.error("❌ 리뷰 등록 중 컨트롤러 오류:", err);
+    res.status(500).json({ error: "리뷰 등록 실패", detail: err.message });
+  }
+};
+
+// 리뷰 삭제
+exports.deleteReview = async (req, res) => {
+  const reviewId = req.params.reviewId;
+  const userId = req.params.userId;
+  try {
+    const result = await reviewModel.deleteReview(reviewId, userId);
+    res.status(200).json({ message: "삭제 완료" });
+  } catch (err) {
+    console.error("❌ 리뷰 삭제 오류:", err);
+    res.status(500).json({ error: "리뷰 삭제 실패" });
+  }
+};
+
+// 리뷰 통계 조회
+exports.getReviewStats = async (req, res) => {
+  try {
+    const stats = await reviewModel.getReviewStatsByProductId(
+      req.params.productId
+    );
+    res.json(toStatsDTO(stats));
+  } catch (err) {
+    res.status(500).json({ error: "리뷰 통계 조회 실패" });
+  }
+};
+
+// 리뷰 수정
+exports.updateReview = async (req, res) => {
+  try {
+    const reviewId = req.params.reviewId;
+    const userId = req.params.userId;
+
+    const { rating, longevity, sillage, gender, content } = req.body;
+
+    const result = await reviewModel.updateReview({
+      review_id: reviewId,
+      user_id: userId,
+      rating,
+      longevity,
+      sillage,
+      gender,
+      content,
+    });
+
+    res.status(200).json({ message: "리뷰 수정 완료" });
+  } catch (err) {
+    console.error("❌ 리뷰 수정 오류:", err);
+    res.status(500).json({ error: "리뷰 수정 실패" });
+  }
 };
