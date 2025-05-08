@@ -21,9 +21,9 @@ const HomePage = () => {
     }
   };
 
-  useEffect(() => {
-    fetchProducts();
-  }, [note, type]);
+useEffect(() => {
+  fetchProducts();
+}, [note, type]);
 
   return (
     <div>
