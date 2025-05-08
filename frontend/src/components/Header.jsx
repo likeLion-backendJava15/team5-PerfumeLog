@@ -28,7 +28,10 @@ const Header = () => {
     <div style={{ backgroundColor: '#E8F7F6', padding: '10px 20px', borderBottom: '1px solid #d0e8e6' ,position: 'relative' }}>
       <Container fluid className="d-flex align-items-center justify-content-between">
         {/* 왼쪽: 로고*/}
-        <div className="d-flex align-items-center">
+        <div className="d-flex align-items-center" style={{cursor: 'pointer',transition: 'transform 0.2s',}}
+          onClick={() => navigate('/')}
+          onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+          onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1.0)'}>
           <img src="/logo512.png" alt="로고" height="75" />
         </div>
 
@@ -66,9 +69,20 @@ const Header = () => {
               zIndex: 1000,
               width: '160px',
             }}>
-              <div style={{ padding: '10px', cursor: 'pointer' }} onClick={() => handleMenuClick('/myreviews')}>내 리뷰</div>
-              <div style={{ padding: '10px', cursor: 'pointer' }} onClick={() => handleMenuClick('/wishlist')}>찜 목록</div>
-              <div style={{ padding: '10px', cursor: 'pointer' }} onClick={() => handleMenuClick('/login')}>로그아웃</div>
+              <div style={{cursor: 'pointer',transition: 'transform 0.2s',padding: '10px', borderBottom: '2px solid #E8F7F6'}}
+                onClick={() => navigate('reviews')}
+                onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+                onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1.0)'}>내 리뷰</div>
+
+                <div style={{cursor: 'pointer',transition: 'transform 0.2s',padding: '10px', borderBottom: '2px solid #E8F7F6', margin: '5px 0px 5px 0px'}}
+                onClick={() => navigate('wishlist')}
+                onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+                onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1.0)'}>찜 목록</div>
+
+                <div style={{cursor: 'pointer',transition: 'transform 0.2s',padding: '10px' }}
+                onClick={() => navigate('login')}
+                onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+                onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1.0)'}>로그아웃</div>
             </div>
           )}
     </div>
