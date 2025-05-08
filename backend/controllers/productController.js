@@ -21,6 +21,23 @@ const ProductController = {
       res.status(500).json({ error: '서버 오류' });
     }
   },
+
+  async search(req, res) {
+    try {
+      console.log('search 함수 호출됨')
+      const keyword = req.query.q;
+      if (!keyword) {
+        return res.status(400).json({ error: '검색어를 입력하세요.' });
+      }
+      const results = await ProductModel.searchProducts(keyword);
+      console.log('검색어:', keyword);
+      console.log('검색 결과:', results);
+      res.json(results);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: '서버 오류' });
+    }
+  },
 };
 
 module.exports = ProductController;
