@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import ProductFilter from './ProductFilter';
-import ProductCard from './ProductCard';
+import ProductFilter from '../components/ProductFilter';
+import ProductCard from '../components/ProductCard';
 import axios from 'axios';
 
 const HomePage = () => {
