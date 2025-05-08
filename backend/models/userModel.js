@@ -1,5 +1,4 @@
 const pool = require('../config/db');
-const bcrypt = require('bcrypt');
 
 const UserModel = {
   async findByUsername(username) {
@@ -8,18 +7,16 @@ const UserModel = {
   },
 
   async createUser(username, password) {
-    const hashed = await bcrypt.hash(password, 10);
     const [result] = await pool.query(
       'INSERT INTO users (username, password) VALUES (?, ?)',
-      [username, hashed]
+      [username, password]
     );
     return { id: result.insertId, username };
+  },
+
+  async validatePassword(inputPassword, savedPassword) {
+    return inputPassword === savedPassword;
   }
 };
 
 module.exports = UserModel;
-
-async validatePassword(password, hashedPassword) {
-    return await bcrypt.compare(password, hashedPassword);
-  }
-

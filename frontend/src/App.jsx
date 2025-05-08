@@ -15,21 +15,23 @@ import SignUpPage from "./pages/SignUpPage";
 import MyPage from "./pages/MyPage";
 import MyReview from "./pages/MyReview";
 import WishList from "./pages/WishList";
+import ReviewCreatePage from "./pages/ReviewCreatePage";
 
 function App() {
   return (
     <Router>
-      <div style={{ backgroundColor: "#8ECFC9", minHeight: "100vh" }}>
+      <div style={{ backgroundColor: "#ffffff", minHeight: "100vh" }}>
         <Header />
         <div className="container mt-4">
           <Routes>
-            {/* <Route path="/" element={<HomePage />} />
+            <Route path="/" element={<HomePage />} />
             <Route path="/product/:id" element={<ProductPage />} />
             <Route path="/reviews" element={<ReviewPage />} />
+            <Route path="/reviews/create/:productId" element={<ReviewCreatePage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/mypage" element={<MyPage />} />
-            <Route path="/myreviews" element={<MyReview />} /> */}
+            <Route path="/myreviews" element={<MyReview />} />
             <Route path="/wishlist" element={<WishList />} />
           </Routes>
         </div>
