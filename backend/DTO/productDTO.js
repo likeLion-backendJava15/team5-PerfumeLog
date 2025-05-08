@@ -1,13 +1,26 @@
 class ProductDTO {
-    constructor({ id, name, brand_id, family_id, image_url, price, description_url }) {
+    constructor({
+      id,
+      product_name,
+      brand_name,
+      image_url,
+      price,
+      family_name,
+      average_rating,
+      review_count
+    }) {
       this.id = id;
-      this.name = name;
-      this.brandId = brand_id;
-      this.familyId = family_id;
+      this.name = product_name;
+      this.brand = brand_name;
       this.imageUrl = image_url;
       this.price = price;
-      this.descriptionUrl = description_url;
+      this.family = family_name;
+      this.averageRating = average_rating;
+      this.reviewCount = review_count;
     }
   }
   
   module.exports = ProductDTO;
+  
+  
+  
