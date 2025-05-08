@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useParams } from 'react-router-dom';
+import ProductDetail from '../components/ProductDetail';
+import Header from "../components/Header";
 
-import ReviewForm from '../components/ReviewForm';
+export default function ReviewPage() {
 
-const reviewList = () => {
-    return 
-    <div>
-        <h3>리뷰 작성</h3>
-        <ReviewForm/>
+  return (
+    <div className="p-6">
+        <ProductDetail/>
     </div>
-};
-
-export default reviewList;
+  );
+}

@@ -1,6 +1,6 @@
 // src/components/Header.jsx
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // 추가
+import { useNavigate } from 'react-router-dom'; 
 import { Container, Form, FormControl, Button } from 'react-bootstrap';
 import { FaSearch, FaBars } from 'react-icons/fa';
 

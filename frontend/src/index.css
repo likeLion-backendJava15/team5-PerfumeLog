@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap');
+
 :root {
     --main-color: #8ECFC9;
   }
@@ -18,3 +20,59 @@
     color: white;
   }
   
+
+/* ReviewCreatePage*/ 
+/* 슬라이더 트랙 커스텀 */
+input[type="range"].custom-range {
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  background: #e0e0e0;
+  border-radius: 5px;
+  position: relative;
+  top: 0;
+  margin: 0;
+  padding: 0;
+}
+
+/* 슬라이더 thumb 스타일 */
+input[type="range"].custom-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  margin-top: -5px; /* 바와 중앙 정렬 */
+  background-color: #4FB7B1;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 0 0 2px white;
+}
+
+input[type="range"].custom-range::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background-color: #4FB7B1;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+}
+
+/* 마커 텍스트 스타일 */
+.slider-labels {
+  font-family: 'Noto Sans KR';
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: #929292;
+}
+
+/* 리뷰 작성 칸 텍스트 스타일 */
+.form-control {
+  font-family: 'Noto Sans KR';
+  font-size: 1rem;
+  font-weight: 400;
+  color: #929292;
+}
+
+.text-star-inactive {
+  color: #FFF1CD;
+}
