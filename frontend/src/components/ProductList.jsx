@@ -8,7 +8,7 @@ const ProductList = ({ products }) => {
   return (
     <Container className="mt-3">
       {products.map((product, index) => (
-        <div key={index} className="border-bottom py-3">
+        <div key={index} style={{ borderBottom: '2px solid #D5EDE9' }} className="py-3">
           <ProductCard 
       imageUrl={product.imageUrl} 
       brandName={product.brandName} 
