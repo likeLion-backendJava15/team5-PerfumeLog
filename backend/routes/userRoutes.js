@@ -1,9 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const userController = require('../controllers/userController');
+const UserController = require('../controllers/userController');
 
-router.post('/register', userController.register);
-router.post('/login', userController.login);
-router.post('/logout', userController.logout);
+// 회원가입
+router.post('/signup', UserController.signup);
+
+// 로그인
+router.post('/login', UserController.login);
+
+// 아이디 중복 확인
+router.post('/check-id', UserController.checkUserId);
+
 
 module.exports = router;
