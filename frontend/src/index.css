@@ -76,3 +76,25 @@ input[type="range"].custom-range::-moz-range-thumb {
 .text-star-inactive {
   color: #FFF1CD;
 }
+
+.customBtn {
+  background: none;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  transition: none;
+  transform: none;
+}
+
+.product-btn-selected {
+  background-color: #4FB7B1 !important;
+  border-color: #4FB7B1 !important;
+  color: white !important;
+  border-radius: 0%;
+}
+
+.product-btn {
+  border-top: 1px solid #929292;
+  border-bottom: 1px solid #929292;
+  border-radius: 0%;
+}

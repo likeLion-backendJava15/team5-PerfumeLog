@@ -15,7 +15,6 @@ import SignUpPage from "./pages/SignUpPage";
 import MyPage from "./pages/MyPage";
 import MyReview from "./pages/MyReview";
 import WishList from "./pages/WishList";
-import ReviewCreatePage from "./pages/ReviewCreatePage";
 
 function App() {
   return (
@@ -26,8 +25,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/product/:id" element={<ProductPage />} />
-            <Route path="/reviews" element={<ReviewPage />} />
-            <Route path="/reviews/create/:productId" element={<ReviewCreatePage />} />
+            <Route path="/reviews/create/:productId" element={<ReviewPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/mypage" element={<MyPage />} />

@@ -6,6 +6,7 @@ function ProductPage() {
   const { id } = useParams();
   const [product, setProduct] = useState({});
   const [notes, setNotes] = useState([]);
+  const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
     if(id) {
@@ -20,12 +21,18 @@ function ProductPage() {
       .catch((err) => console.error("노트 데이터 로드 실패: ", err));
     }
   }, [id]);
+
+  useEffect(() => {
+    fetch(`http://localhost:3001/api/reviews/${id}`)
+      .then(res => res.json())
+      .then(data => setReviews(data));
+  }, [id]);
   
   if (product.error) return <p>Product not found</p>;
 
   return (
     <div className="p-4">
-        <ProductDetail product={product} notes={notes} />
+        <ProductDetail product={product} notes={notes} reviews={reviews} />
     </div>
   );
 }
