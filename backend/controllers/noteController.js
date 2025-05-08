@@ -17,6 +17,8 @@ exports.getAllNotes = async (req, res) => {
 exports.getProductsByNote = async (req, res) => {
   const { note, type } = req.query;
 
+  console.log('🔍 필터 요청:', note, type);
+
   if (!note || !type) {
     return res.status(400).json({ message: 'note와 type 쿼리 파라미터가 필요합니다' });
   }
