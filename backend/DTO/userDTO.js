@@ -1,19 +1,18 @@
 class UserDTO {
-    static success(message, token = null) {
-      return {
-        success: true,
-        message,
-        token
-      };
-    }
-  
-    static error(message) {
-      return {
-        success: false,
-        message
-      };
-    }
+  static success(message, user = null) {
+    return {
+      success: true,
+      message,
+      user
+    };
   }
-  
-  module.exports = UserDTO;
-  
+
+  static error(message) {
+    return {
+      success: false,
+      message
+    };
+  }
+}
+
+module.exports = UserDTO;
