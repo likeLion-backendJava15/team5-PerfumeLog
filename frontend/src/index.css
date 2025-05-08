@@ -21,7 +21,7 @@
   }
   
 
-/* ReviewCreatePage*/ 
+/* ReviewPage*/ 
 /* 슬라이더 트랙 커스텀 */
 input[type="range"].custom-range {
   appearance: none;
@@ -97,4 +97,12 @@ input[type="range"].custom-range::-moz-range-thumb {
   border-top: 1px solid #929292;
   border-bottom: 1px solid #929292;
   border-radius: 0%;
+}
+
+/*ProductPage*/
+/* 리뷰 통계 스타일 */
+.review-cnt-text {
+  font-size: smaller;
+  color: #929292;
+  margin-top: 5px;
 }

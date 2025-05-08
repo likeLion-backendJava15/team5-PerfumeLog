@@ -3,6 +3,7 @@ import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from 'react-router-dom';
 import ReviewList from '../components/ReviewList';
+import ReviewStats from "./ReviewStats";
 
 function ProductDetail({ product, notes, reviews }) {
   const navigate = useNavigate();
@@ -138,7 +139,10 @@ function ProductDetail({ product, notes, reviews }) {
         {activeTab === "info" ? (
           <div>상품 정보 내용</div>
         ) : (
+          <>
+          <ReviewStats productId={product.id} />
           <ReviewList reviews={reviews} productId={product.id} />
+          </>
         )}
       </div>
     </div>

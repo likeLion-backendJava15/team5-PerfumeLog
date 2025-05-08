@@ -108,7 +108,20 @@ exports.getReviewStatsByProductId = async (productId) => {
     [productId, productId, productId]
   );
 
-  return rows[0];
+  const [distributionRows] = await db.query(
+    `
+      SELECT rating, COUNT(*) AS count
+      FROM REVIEW
+      WHERE product_id = ?
+      GROUP BY rating
+    `,
+    [productId]
+  );
+
+  return {
+    ...rows[0],
+    distribution: distributionRows
+  };
 };
 
 // 리뷰 수정
