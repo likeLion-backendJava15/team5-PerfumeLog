@@ -1,20 +1,24 @@
+// src/components/ProductList.js
 import React from 'react';
+import { Container } from 'react-bootstrap';
 import ProductCard from './ProductCard';
 
 const ProductList = ({ products }) => {
+
   return (
-    <div className="space-y-4">
-      {products.map((product) => (
-        <ProductCard
-          key={product.id}
-          imageUrl={product.image_url}
-          brand={product.brand_name}
-          name={product.product_name}
-          averageRating={product.average_rating}
-          reviewCount={product.review_count}
-        />
+    <Container className="mt-3">
+      {products.map((product, index) => (
+        <div key={index} className="border-bottom py-3">
+          <ProductCard 
+      imageUrl={product.imageUrl} 
+      brandName={product.brandName} 
+      productName={product.productName} 
+      averageRating={product.averageRating}
+      reviewCount={product.reviewCount}/>
+
+        </div>
       ))}
-    </div>
+    </Container>
   );
 };
 
