@@ -9,3 +9,4 @@ exports.getAllNotes = async () => {
   `);
   return rows;
 };
+
