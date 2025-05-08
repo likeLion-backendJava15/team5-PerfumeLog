@@ -1,11 +1,20 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, Row, Col, Image } from 'react-bootstrap';
 import { Star } from 'lucide-react';
 
-const ProductCard = ({ imageUrl, brandName, productName, averageRating, reviewCount }) => {
-
+const ProductCard = ({ id, imageUrl, brandName, productName, averageRating, reviewCount }) => {
+  const navigate = useNavigate();
+  console.log('✅ ProductCard props:', {
+    id,
+    imageUrl,
+    brandName,
+    productName,
+    averageRating,
+    reviewCount
+  });
   return (
-    <Card className="mb-3 shadow-sm border-0 rounded-3">
+    <Card className="mb-3 shadow-sm border-0 rounded-3" onClick={() => navigate(`/product/${id}`)} style={{ cursor: 'pointer' }}>
       <Card.Body>
         <Row className="align-items-center">
           <Col xs={3}>

@@ -9,7 +9,8 @@ const ProductList = ({ products }) => {
     <Container className="mt-3">
       {products.map((product, index) => (
         <div key={index} style={{ borderBottom: '2px solid #D5EDE9' }} className="py-3">
-          <ProductCard 
+          <ProductCard
+      id={product.id} 
       imageUrl={product.imageUrl} 
       brandName={product.brandName} 
       productName={product.productName} 
