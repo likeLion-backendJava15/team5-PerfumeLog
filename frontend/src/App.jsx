@@ -14,7 +14,7 @@ import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import MyPage from "./pages/MyPage";
 import MyReview from "./pages/MyReview";
-import WishList from "./pages/WishList"; // 너가 맡은 파트
+import WishList from "./pages/WishList";
 
 function App() {
   return (
@@ -23,13 +23,13 @@ function App() {
         <Header />
         <div className="container mt-4">
           <Routes>
-            <Route path="/" element={<HomePage />} />
+            {/* <Route path="/" element={<HomePage />} />
             <Route path="/product/:id" element={<ProductPage />} />
             <Route path="/reviews" element={<ReviewPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/mypage" element={<MyPage />} />
-            <Route path="/myreviews" element={<MyReview />} />
+            <Route path="/myreviews" element={<MyReview />} /> */}
             <Route path="/wishlist" element={<WishList />} />
           </Routes>
         </div>

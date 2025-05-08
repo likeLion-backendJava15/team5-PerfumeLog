@@ -1,5 +1,6 @@
 // src/pages/WishList.js
 import React, { useEffect, useState } from 'react';
+import Header from "../components/Header";
 import axios from 'axios';
 import ProductList from '../components/ProductList';
 
@@ -21,6 +22,7 @@ const WishList = () => {
 
   return (
     <div className="px-3">
+      <Header />
       <h3 className="my-4">내 찜 목록</h3>
       <ProductList products={wishProducts} />
     </div>
