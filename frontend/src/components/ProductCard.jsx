@@ -1,20 +1,29 @@
 import React from 'react';
+import { Card, Row, Col, Image } from 'react-bootstrap';
 import { Star } from 'lucide-react';
 
-const ProductCard = ({ imageUrl, brand, name, averageRating, reviewCount }) => {
+const ProductCard = ({ imageUrl, brandName, productName, averageRating, reviewCount }) => {
+
   return (
-    <div className="border border-gray-200 rounded-2xl p-4 flex gap-4 items-center shadow-sm">
-      <img src={imageUrl} alt={name} className="w-20 h-20 object-cover rounded-md" />
-      <div className="flex-1">
-        <p className="text-sm text-gray-500">{brand}</p>
-        <h3 className="text-base font-semibold">{name}</h3>
-        <div className="flex items-center gap-2 text-yellow-500 text-sm mt-1">
-          <Star size={16} fill="#F0C24D" strokeWidth={1} />
-          <span>{averageRating}</span>
-          <span className="text-gray-400 ml-1">리뷰({reviewCount})</span>
-        </div>
-      </div>
-    </div>
+    <Card className="mb-3 shadow-sm border-0 rounded-3">
+      <Card.Body>
+        <Row className="align-items-center">
+          <Col xs={3}>
+            <Image src={imageUrl} alt={productName} thumbnail rounded />
+          </Col>
+          <Col>
+            <div className="text-muted small">{brandName}</div>
+            <h5 className="mb-1">{productName}</h5>
+            <div className="d-flex align-items-center text-warning">
+              <Star size={16} fill="#F0C24D" strokeWidth={1} /> <span className="ms-1">{averageRating}</span>
+            </div>
+            <div>
+            <span className="text-muted small">리뷰({reviewCount})</span>
+            </div>
+          </Col>
+        </Row>
+      </Card.Body>
+    </Card>
   );
 };
 
