@@ -1,21 +1,20 @@
-
-const mysql = require('mysql2/promise'); 
-require('dotenv').config();
+const mysql = require("mysql2/promise");
+require("dotenv").config(); // .env 파일 로드
 
 const pool = mysql.createPool({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
+  host: process.env.DB_HOST, // ex: 'localhost'
+  user: process.env.DB_USER, // ex: 'root'
+  password: process.env.DB_PASSWORD, // ex: 'yourpassword'
+  database: process.env.DB_NAME, // ex: 'perfume_db'
 });
 
-// DB 연결 확인 로그 (옵션)
-pool.query('SELECT DATABASE() AS db')
+pool
+  .query("SELECT DATABASE() AS db")
   .then(([rows]) => {
-    console.log('연결된 DB:', rows[0].db);
+    console.log("연결DB:", rows[0].db); //
   })
-  .catch(err => {
-    console.error('DB 연결 실패:', err.message);
+  .catch((err) => {
+    console.error("실패:", err.message);
   });
 
-module.exports = pool; 
+module.exports = pool;
