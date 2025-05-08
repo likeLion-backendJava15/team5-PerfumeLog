@@ -32,7 +32,7 @@ const WishList = () => {
   console.log("✔ wishProducts in render:", wishProducts);
   return (
     <div className="px-4 py-6 max-w-2xl mx-auto">
-      <h2 className="text-2xl font-bold mb-6">내 찜 목록</h2>
+      <h2 className="text-2xl font-bold mb-6" style={{ color: '#4FB7B1' }}>내 찜 목록</h2>
       {wishProducts.length > 0 ? (
         <ProductList
         products={wishProducts.map((product) => ({
