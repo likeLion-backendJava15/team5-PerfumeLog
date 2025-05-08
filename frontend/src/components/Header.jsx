@@ -6,6 +6,7 @@ import { FaSearch, FaBars } from 'react-icons/fa';
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [searchKeyword, setSearchKeyword] = useState('');
   const navigate = useNavigate();
 
   const toggleMenu = () => {
@@ -16,6 +17,13 @@ const Header = () => {
     navigate(path);
     setMenuOpen(false); // 메뉴 닫기
   };
+
+  const handleSearch = () => {
+    if (searchKeyword.trim()) {
+      navigate(`/search?q=${encodeURIComponent(searchKeyword.trim())}`);
+    }
+  };
+
   return (
     <div style={{ backgroundColor: '#E8F7F6', padding: '10px 20px', borderBottom: '1px solid #d0e8e6' ,position: 'relative' }}>
       <Container fluid className="d-flex align-items-center justify-content-between">
@@ -28,12 +36,15 @@ const Header = () => {
         <Form className="d-flex flex-grow-1 mx-4" style={{ maxWidth: '800px'}}>
           <FormControl
             type="search"
+            value={searchKeyword}
+            onChange={(e) => setSearchKeyword(e.target.value)}
             placeholder="향수 이름, 브랜드, 향 계열 등 검색"
             className="me-2"
             aria-label="Search"
             style={{ backgroundColor: 'white', border: 'none', borderRadius: '5px' ,height: '48px'}}
           />
-          <Button variant="link" style={{ color: '#8ECFC9',height: '40px' }}>
+          {/* 검색버튼 */}
+          <Button variant="link" style={{ color: '#8ECFC9',height: '40px' }} onClick={handleSearch}>
             <FaSearch size={25} />
           </Button>
         </Form>

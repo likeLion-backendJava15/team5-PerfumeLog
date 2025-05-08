@@ -16,6 +16,8 @@ import MyPage from "./pages/MyPage";
 import MyReview from "./pages/MyReview";
 import WishList from "./pages/WishList";
 import ReviewCreatePage from "./pages/ReviewCreatePage";
+import SearchResult from './pages/SearchResult';
+
 
 function App() {
   return (
@@ -33,6 +35,7 @@ function App() {
             <Route path="/mypage" element={<MyPage />} />
             <Route path="/myreviews" element={<MyReview />} />
             <Route path="/wishlist" element={<WishList />} />
+            <Route path="/search" element={<SearchResult />} />
           </Routes>
         </div>
       </div>
