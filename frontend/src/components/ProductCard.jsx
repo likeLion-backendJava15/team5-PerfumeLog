@@ -13,6 +13,7 @@ const ProductCard = ({ id, imageUrl, brandName, productName, averageRating, revi
     averageRating,
     reviewCount
   });
+  
   return (
     <Card className="mb-3 shadow-sm border-0 rounded-3" onClick={() => navigate(`/product/${id}`)} style={{ cursor: 'pointer' }}>
       <Card.Body>

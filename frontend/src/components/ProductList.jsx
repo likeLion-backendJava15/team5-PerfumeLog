@@ -16,8 +16,7 @@ const ProductList = ({ products }) => {
       productName={product.productName} 
       averageRating={product.averageRating}
       reviewCount={product.reviewCount}/>
-
-        </div>
+      </div>
       ))}
     </Container>
   );
