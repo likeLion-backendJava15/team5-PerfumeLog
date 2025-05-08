@@ -15,7 +15,6 @@ import SignUpPage from "./pages/SignUpPage";
 import MyPage from "./pages/MyPage";
 import MyReview from "./pages/MyReview";
 import WishList from "./pages/WishList";
-import ReviewCreatePage from "./pages/ReviewCreatePage";
 import SearchResult from './pages/SearchResult';
 
 
