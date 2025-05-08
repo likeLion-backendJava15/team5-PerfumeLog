@@ -34,6 +34,22 @@ const WishController = {
       console.error(err);
       res.status(500).json({ error: '서버 오류' });
     }
+  },
+
+  async isLiked(req, res) {
+    try {
+      const userId = req.params.userId;
+      const productId = req.params.productId;
+      const isLiked = await WishModel.getWishByUserIdAndProductId(userId, productId);
+      if(isLiked){
+        res.json({isLiked: true});
+      } else {
+        res.json({isLiked: false});
+      }
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: '서버 오류' });
+    }
   }
 };
 

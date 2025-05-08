@@ -36,9 +36,21 @@ function ProductPage() {
       .then(data => setReviews(data))
       .catch((err) => console.error("리뷰 데이터 로드 실패: ", err));
     }
-  }, [id]);
+
+    if(userId) {
+      fetch(`http://localhost:3001/api/wishes/${userId}/${id}`)
+      .then((res) => res.json())
+      .then((data) => setIsLiked(data.isLiked))
+      .catch((err) => console.error("찜 상태 로드 실패: ", err));
+    }
+  }, [id, userId]);
   
   const toggleLike = () => {
+    if(!userId) {
+      console.warn("로그인 후 찜 기능을 사용할 수 있습니다.");
+      return;
+    }
+
     const apiUrl = 'http://localhost:3001/api/wishes';
 
     fetch(apiUrl, {
