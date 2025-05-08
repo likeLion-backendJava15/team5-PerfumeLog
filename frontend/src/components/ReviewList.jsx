@@ -1,18 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
+import ReviewCard from "./ReviewCard";
 
-export default function ReviewList({ reviews }) {
-    return (
-      <div>
-        {reviews.length > 0 ? (
-          reviews.map((r) => (
-            <div key={r.id} className="mb-3 border-bottom pb-2">
-              <strong>{r.rating}점</strong>
-              <p>{r.content}</p>
-            </div>
-          ))
-        ) : (
-          <p>리뷰가 없습니다.</p>
-        )}
-      </div>
-    );
-  }
+export default function ReviewList({ reviews, productId, userId }) {
+  if (!reviews?.length) return <p className="text-muted">작성된 리뷰가 없습니다.</p>;
+
+  return (
+    <div className="pt-3">
+      {reviews.map((review) => (
+        <ReviewCard key={review.id} review={review} userId={userId} />
+      ))}
+    </div>
+  );
+}

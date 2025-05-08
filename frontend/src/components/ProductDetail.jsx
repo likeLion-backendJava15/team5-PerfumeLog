@@ -1,14 +1,24 @@
 import { Star, Heart } from "lucide-react";
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useNavigate } from 'react-router-dom';
-import ReviewList from '../components/ReviewList';
+import { useNavigate, useLocation } from "react-router-dom";
+import ReviewList from "../components/ReviewList";
 import ReviewStats from "./ReviewStats";
 
 function ProductDetail({ product, notes, reviews }) {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  console.log("location.state:", location.state);
+
+  const [activeTab, setActiveTab] = useState(() => {
+    return location.state?.returnToReviewTab === true ? "review" : "info";
+  });
+
   const handleWriteReview = () => {
-    navigate(`/reviews/create/${product.id}`);
+    navigate(`/reviews/create/${product.id}`, {
+      state: { returnToReviewTab: true },
+    });
   };
 
   const topNotes = notes
@@ -19,7 +29,7 @@ function ProductDetail({ product, notes, reviews }) {
     .map((note) => note.name);
 
   const [isLiked, setIsLiked] = useState(false);
-  const [activeTab, setActiveTab] = useState("info");
+  const currentUserId = Number(localStorage.getItem("user_id"));
 
   const toggleLike = () => {
     setIsLiked(!isLiked);
@@ -87,12 +97,14 @@ function ProductDetail({ product, notes, reviews }) {
 
           <div className="d-flex justify-content-between border-top pt-3">
             <div className="d-flex align-items-center">
-              <img onClick={handleWriteReview}
+              <img
+                onClick={handleWriteReview}
                 src="/reviewCreate.png"
                 alt="리뷰 아이콘"
-                style={{ width: "50px", height: "50px", cursor: 'pointer' }}
+                style={{ width: "50px", height: "50px", cursor: "pointer" }}
               />
-              <button onClick={handleWriteReview}
+              <button
+                onClick={handleWriteReview}
                 className="customBtn"
                 style={{
                   color: "#4FB7B1",
@@ -140,8 +152,13 @@ function ProductDetail({ product, notes, reviews }) {
           <div>상품 정보 내용</div>
         ) : (
           <>
-          <ReviewStats productId={product.id} />
-          <ReviewList reviews={reviews} productId={product.id} />
+            <ReviewStats productId={product.id} />
+            <hr style={{ borderTop: "2px solid #9dd6cd", margin: "2rem 0" }} />
+            <ReviewList
+              reviews={reviews}
+              productId={product.id}
+              userId={currentUserId}
+            />
           </>
         )}
       </div>
