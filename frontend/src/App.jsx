@@ -15,11 +15,12 @@ import SignUpPage from "./pages/SignUpPage";
 import MyPage from "./pages/MyPage";
 import MyReview from "./pages/MyReview";
 import WishList from "./pages/WishList";
+import ReviewCreatePage from "./pages/ReviewCreatePage";
 
 function App() {
   return (
     <Router>
-      <div style={{ backgroundColor: "#8ECFC9", minHeight: "100vh" }}>
+      <div style={{ backgroundColor: "#ffffff", minHeight: "100vh" }}>
         <Header />
         <div className="container mt-4">
           <Routes>
