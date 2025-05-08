@@ -2,16 +2,8 @@ import { Star, Heart } from "lucide-react";
 import { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-function ProductDetail({ product, notes }) {
-  const topNotes = notes.filter(note => note.type === "TOP").map(note => note.name);
-  const baseNotes = notes.filter(note => note.type === "BASE").map(note => note.name);
-
-  const [isLiked, setIsLiked] = useState(false);
+function ProductDetail({ product, notes, toggleLike, isLiked }) {
   const [activeTab, setActiveTab] = useState('info');
-
-  const toggleLike = () => {
-    setIsLiked(!isLiked);
-  };
 
   return (
     <div className="container py-4">
@@ -43,23 +35,15 @@ function ProductDetail({ product, notes }) {
         <div className="row mb-3">
             <div className="col">
               <h5 className="fw-bold">Top</h5>
-              {topNotes.length > 0 ? (
-                topNotes.map((note, index) => (
-                  <span key={index} className="block">{note}</span>
-                ))
-              ) : (
-                <span>없음</span>
-              )}
+              {notes.TOP?.map((note, index) => (
+                <span key={index} className="d-block">#{note}</span>
+              ))}
             </div>
             <div className="col">
               <h5 className="fw-bold">Base</h5>
-              {baseNotes.length > 0 ? (
-                baseNotes.map((note, index) => (
-                  <span key={index} className="block">{note}</span>
-                ))
-              ) : (
-                <span>없음</span>
-              )}
+              {notes.BASE?.map((note, index) => (
+                <span key={index} className="d-block">#{note}</span>
+              ))}
             </div>
           </div>
         
