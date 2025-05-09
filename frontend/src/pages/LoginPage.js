@@ -19,7 +19,7 @@ const LoginPage = () => {
         userid: userid,
         password: password
       });
-      login({ userid });
+      login(response.data.user);
       alert(response.data.message);
       navigate('/');
     } catch (err) {
