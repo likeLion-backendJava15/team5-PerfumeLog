@@ -1,6 +1,7 @@
 exports.toReviewDTO = (review) => ({ // 일반 리뷰 DTO
   id: review.id,
-  userId: review.user_id,
+  userId: review.user_id, // auto 생성되는 userId
+  userid: review.userid, // 사용자가 입력한 userid
   rating: review.rating,
   longevity: review.longevity,
   sillage: review.sillage,

@@ -52,8 +52,13 @@ exports.getReviewStats = async (req, res) => {
     const stats = await reviewModel.getReviewStatsByProductId(
       req.params.productId
     );
-    res.json(toStatsDTO(stats));
+    console.log("최종 통계 응답 데이터:", stats);
+    res.json({
+      distribution: stats.distribution || [],
+      ...toStatsDTO(stats),
+    });
   } catch (err) {
+    console.error("❌ 리뷰 통계 조회 실패:", err);
     res.status(500).json({ error: "리뷰 통계 조회 실패" });
   }
 };
