@@ -22,8 +22,10 @@ function App() {
   return (
     <AuthProvider>
       <Router>
-        <div style={{ backgroundColor: "#ffffff", minHeight: "100vh" }}>
-          <Header />
+      <div style={{ backgroundColor: "#ffffff", minHeight: "100vh" }}>
+        {/* 로그인과 회원가입 페이지가 아닌 경우에만 헤더를 렌더링 */}
+        {window.location.pathname !== "/login" && 
+        window.location.pathname !== "/signup" && <Header />}
           <div className="container mt-4">
             <Routes>
               <Route path="/" element={<HomePage />} />
