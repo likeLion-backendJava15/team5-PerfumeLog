@@ -89,7 +89,7 @@ const Header = () => {
               width: '160px',
             }}>
               <div style={{cursor: 'pointer',transition: 'transform 0.2s',padding: '10px', borderBottom: '2px solid #E8F7F6'}}
-                onClick={() => navigate('/my-reviews')}
+                onClick={() => navigate('reviews')}
                 onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
                 onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1.0)'}>내 리뷰</div>
 
