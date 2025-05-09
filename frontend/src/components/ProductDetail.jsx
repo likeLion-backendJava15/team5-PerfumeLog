@@ -5,12 +5,12 @@ import { useNavigate, useLocation } from "react-router-dom";
 import ReviewList from "../components/ReviewList";
 import ReviewStats from "./ReviewStats";
 
-function ProductDetail({ product, notes, reviews }) {
+function ProductDetail({ product, notes, toggleLike, isLiked, reviews, currentUserId }) {
   const navigate = useNavigate();
   const location = useLocation();
 
   console.log("location.state:", location.state);
-
+  
   const [activeTab, setActiveTab] = useState(() => {
     return location.state?.returnToReviewTab === true ? "review" : "info";
   });
@@ -19,20 +19,6 @@ function ProductDetail({ product, notes, reviews }) {
     navigate(`/reviews/create/${product.id}`, {
       state: { returnToReviewTab: true },
     });
-  };
-
-  const topNotes = notes
-    .filter((note) => note.type === "TOP")
-    .map((note) => note.name);
-  const baseNotes = notes
-    .filter((note) => note.type === "BASE")
-    .map((note) => note.name);
-
-  const [isLiked, setIsLiked] = useState(false);
-  const currentUserId = Number(localStorage.getItem("user_id"));
-
-  const toggleLike = () => {
-    setIsLiked(!isLiked);
   };
 
   return (
@@ -71,27 +57,15 @@ function ProductDetail({ product, notes, reviews }) {
           <div className="row mb-3">
             <div className="col">
               <h5 className="fw-bold">Top</h5>
-              {topNotes.length > 0 ? (
-                topNotes.map((note, index) => (
-                  <span key={index} className="block">
-                    {note}
-                  </span>
-                ))
-              ) : (
-                <span>없음</span>
-              )}
+              {notes.TOP?.map((note, index) => (
+                <span key={index} className="d-block">#{note}</span>
+              ))}
             </div>
             <div className="col">
               <h5 className="fw-bold">Base</h5>
-              {baseNotes.length > 0 ? (
-                baseNotes.map((note, index) => (
-                  <span key={index} className="block">
-                    {note}
-                  </span>
-                ))
-              ) : (
-                <span>없음</span>
-              )}
+              {notes.BASE?.map((note, index) => (
+                <span key={index} className="d-block">#{note}</span>
+              ))}
             </div>
           </div>
 
@@ -148,8 +122,13 @@ function ProductDetail({ product, notes, reviews }) {
       </div>
 
       <div className="mt-3">
-        {activeTab === "info" ? (
-          <div>상품 정보 내용</div>
+        {activeTab === 'info' ? (
+          <div>
+            <img 
+              src={product.imageUrl}
+              alt={product.name}
+            />
+          </div>
         ) : (
           <>
             <ReviewStats productId={product.id} />

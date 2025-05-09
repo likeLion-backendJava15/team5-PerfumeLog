@@ -34,7 +34,7 @@ const WishModel = {
       [userId, productId]
     );
     
-    // DB의 UNIQUE 제약조건 위반 - 중복복
+    // DB의 UNIQUE 제약조건 위반 - 중복
     if (rows.length > 0) {
       throw new Error('이미 찜한 제품입니다.');
     }
@@ -48,6 +48,15 @@ const WishModel = {
 
   async removeWish(userId, productId) {
     await db.query('DELETE FROM WISH WHERE user_id = ? AND product_id = ?', [userId, productId]);
+  },
+
+  async getWishByUserIdAndProductId(userId, productId) {
+    const [result] = await db.query(
+      'SELECT * FROM WISH WHERE user_id = ? AND product_id = ?',
+      [userId, productId]
+    );
+
+    return result[0];
   }
 };
 
