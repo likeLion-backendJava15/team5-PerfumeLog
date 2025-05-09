@@ -7,12 +7,19 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const stored = localStorage.getItem('user');
-    if (stored) {
-      setUser(JSON.parse(stored));
+    try {
+      const stored = localStorage.getItem('user');
+      if (stored && stored !== "undefined") {
+        setUser(JSON.parse(stored));
+      }
+    } catch (err) {
+      console.error("⚠️ localStorage 파싱 오류:", err);
+      localStorage.removeItem('user'); // 잘못된 값 제거
+    } finally {
+      setLoading(false);
     }
-    setLoading(false); // ✅ 로딩 완료
   }, []);
+  
 
   const login = (userData) => {
     console.log("login()에 전달된 userData:", userData);
