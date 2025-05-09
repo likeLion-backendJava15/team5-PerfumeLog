@@ -27,9 +27,15 @@ const UserController = {
       if (!user) {
         return res.status(401).json({ error: '아이디 또는 비밀번호가 잘못되었습니다.' });
       }
-
+      console.log("userModel에서 반환한 user:", user);
       // 로그인 성공 시, 기본적인 메시지를 반환
-      res.status(200).json({ message: '로그인 성공' });
+      res.status(200).json({
+        message: '로그인 성공',
+        user: {
+          id: user.id,            
+          userid: user.userid
+        }
+      });
     } catch (error) {
       console.error(error);
       res.status(400).json({ error: error.message });

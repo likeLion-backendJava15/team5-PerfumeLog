@@ -19,19 +19,20 @@ const UserModel = {
   // 로그인
   async login(userid, password) {
     const [rows] = await db.query('SELECT * FROM user WHERE userid = ?', [userid]);
-
+  
     if (rows.length === 0) {
       throw new Error('아이디가 존재하지 않습니다.');
     }
-
+  
     const foundUser = rows[0];
-
+  
     if (foundUser.password !== password) {
       throw new Error('비밀번호가 잘못되었습니다.');
     }
-
+  
     return foundUser;
-  },
+  }
+  ,
 
   // 아이디 중복 확인
   async checkUserIdExist(userid) {
