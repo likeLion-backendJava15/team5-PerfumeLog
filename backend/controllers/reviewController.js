@@ -87,3 +87,16 @@ exports.updateReview = async (req, res) => {
     res.status(500).json({ error: "리뷰 수정 실패" });
   }
 };
+
+// 내 리뷰 조회
+exports.getReviewsByUserId = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const reviews = await reviewModel.getReviewsByUserId(userId);
+    const dto = reviews.map(toReviewDTO);
+    res.status(200).json(dto);
+  } catch (err) {
+    console.error("사용자 리뷰 조회 실패:", err);
+    res.status(500).json({ error: '사용자 리뷰 조회 실패' });
+  }
+};

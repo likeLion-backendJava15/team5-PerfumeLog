@@ -11,10 +11,11 @@ export const AuthProvider = ({ children }) => {
     if (stored) {
       setUser(JSON.parse(stored));
     }
-    setLoading(false);
+    setLoading(false); // ✅ 로딩 완료
   }, []);
 
   const login = (userData) => {
+    console.log("login()에 전달된 userData:", userData);
     setUser(userData);
     localStorage.setItem('user', JSON.stringify(userData));
   };
@@ -25,7 +26,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );
