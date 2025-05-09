@@ -8,6 +8,7 @@ const MyReview = () => {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [reloadFlag, setReloadFlag] = useState(false);
 
   useEffect(() => {
     const fetchMyReviews = async () => {
@@ -15,11 +16,12 @@ const MyReview = () => {
         console.log("⛔ 로그인된 사용자 정보 없음");
         return;
       }
-
-      const userId = user.id || user.userid; // ✅ 둘 중 하나 사용
-
+  
+      const userId = user.id || user.userid;
+  
       try {
         const response = await axios.get(`http://localhost:3001/api/reviews/user/${userId}`);
+        console.log(user);
         console.log("✅ 내 리뷰:", response.data);
         setReviews(response.data);
       } catch (err) {
@@ -29,9 +31,9 @@ const MyReview = () => {
         setLoading(false);
       }
     };
-
+  
     fetchMyReviews();
-  }, [user]); // ✅ user가 바뀔 때마다 실행
+  }, [user, reloadFlag]);
 
   if (loading) return <p>로딩 중...</p>;
   if (error) return <p className="text-danger">{error}</p>;

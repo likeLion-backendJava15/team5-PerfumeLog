@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import ProductDetail from "../components/ProductDetail";
-import { useAuth } from "../AuthContext";
+import { useParams } from 'react-router-dom';
+import ProductDetail from '../components/ProductDetail';
+import { useAuth } from '../AuthContext';
 
 function ProductPage() {
   const { id } = useParams();
@@ -9,18 +9,18 @@ function ProductPage() {
   const [notes, setNotes] = useState({ TOP: [], BASE: [] });
   const [isLiked, setIsLiked] = useState(false);
   const [reviews, setReviews] = useState([]);
+  const [reviewStats, setReviewStats] = useState(null);
 
-  // 로그인된 사용자 정보 불러오기
   const { user } = useAuth();
   const userId = user?.id ?? null;
 
   useEffect(() => {
-    if (id) {
+    if(id) {
       fetch(`http://localhost:3001/api/products/${id}`)
         .then((res) => res.json())
         .then((data) => setProduct(data))
         .catch((err) => console.error("제품 데이터 로드 실패:", err));
-
+    
       fetch(`http://localhost:3001/api/product-notes/${id}`)
         .then((res) => res.json())
         .then((data) => {
@@ -31,14 +31,19 @@ function ProductPage() {
           setNotes(notesData);
         })
         .catch((err) => console.error("노트 데이터 로드 실패: ", err));
-
+      
       fetch(`http://localhost:3001/api/reviews/${id}`)
-        .then((res) => res.json())
-        .then((data) => setReviews(data))
+        .then(res => res.json())
+        .then(data => setReviews(data))
         .catch((err) => console.error("리뷰 데이터 로드 실패: ", err));
+
+      fetch(`http://localhost:3001/api/reviews/stats/${id}`)
+        .then(res => res.json())
+        .then(data => setReviewStats(data))
+        .catch((err) => console.error("리뷰 통계 로드 실패: ", err));
     }
 
-    if (userId) {
+    if(userId) {
       fetch(`http://localhost:3001/api/wishes/${userId}/${id}`)
         .then((res) => res.json())
         .then((data) => setIsLiked(data.isLiked))
@@ -47,12 +52,12 @@ function ProductPage() {
   }, [id, userId]);
 
   const toggleLike = () => {
-    if (!userId) {
+    if(!userId) {
       console.warn("로그인 후 찜 기능을 사용할 수 있습니다.");
       return;
     }
 
-    const apiUrl = "http://localhost:3001/api/wishes";
+    const apiUrl = 'http://localhost:3001/api/wishes';
 
     fetch(apiUrl, {
       method: isLiked ? "DELETE" : "POST",
@@ -61,7 +66,7 @@ function ProductPage() {
       },
       body: JSON.stringify({
         userId: userId,
-        productId: id,
+        productId: id
       }),
     })
       .then(() => {
@@ -69,10 +74,10 @@ function ProductPage() {
       })
       .catch((err) => console.error("찜 요청 실패:", err));
   };
-
+  
   return (
     <div className="p-4">
-      {product.error ? (
+      {(product.error) ? (
         <p>Product not found</p>
       ) : (
         <ProductDetail
@@ -82,6 +87,7 @@ function ProductPage() {
           isLiked={isLiked}
           reviews={reviews}
           currentUserId={userId}
+          reviewStats={reviewStats}
         />
       )}
     </div>

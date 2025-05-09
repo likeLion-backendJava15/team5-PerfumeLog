@@ -5,12 +5,18 @@ import { useNavigate, useLocation } from "react-router-dom";
 import ReviewList from "../components/ReviewList";
 import ReviewStats from "./ReviewStats";
 
-function ProductDetail({ product, notes, toggleLike, isLiked, reviews, currentUserId }) {
+function ProductDetail({
+  product,
+  notes,
+  toggleLike,
+  isLiked,
+  reviews,
+  currentUserId,
+  reviewStats,
+}) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  console.log("location.state:", location.state);
-  
   const [activeTab, setActiveTab] = useState(() => {
     return location.state?.returnToReviewTab === true ? "review" : "info";
   });
@@ -38,12 +44,12 @@ function ProductDetail({ product, notes, toggleLike, isLiked, reviews, currentUs
               <div className="d-flex align-items-center">
                 <Star className="text-warning me-2" fill="#FFD700" />
                 <span>
-                  {product.averageRating
-                    ? Number(product.averageRating).toFixed(1)
+                  {product.average_rating != null
+                    ? Number(product.average_rating).toFixed(1)
                     : "0.0"}
                 </span>
                 <span className="text-secondary ms-2">
-                  ({product.reviewCount || 0})
+                  리뷰({product.review_count || 0})
                 </span>
               </div>
             </div>
@@ -58,13 +64,17 @@ function ProductDetail({ product, notes, toggleLike, isLiked, reviews, currentUs
             <div className="col">
               <h5 className="fw-bold">Top</h5>
               {notes.TOP?.map((note, index) => (
-                <span key={index} className="d-block">#{note}</span>
+                <span key={index} className="d-block">
+                  #{note}
+                </span>
               ))}
             </div>
             <div className="col">
               <h5 className="fw-bold">Base</h5>
               {notes.BASE?.map((note, index) => (
-                <span key={index} className="d-block">#{note}</span>
+                <span key={index} className="d-block">
+                  #{note}
+                </span>
               ))}
             </div>
           </div>
@@ -122,12 +132,9 @@ function ProductDetail({ product, notes, toggleLike, isLiked, reviews, currentUs
       </div>
 
       <div className="mt-3">
-        {activeTab === 'info' ? (
+        {activeTab === "info" ? (
           <div>
-            <img 
-              src={product.imageUrl}
-              alt={product.name}
-            />
+            <img src={product.imageUrl} alt={product.name} />
           </div>
         ) : (
           <>

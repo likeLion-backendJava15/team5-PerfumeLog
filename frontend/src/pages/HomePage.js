@@ -1,9 +1,9 @@
 // HomePage.js
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import ProductFilter from '../components/ProductFilter';
-import ProductList from '../components/ProductList';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import ProductFilter from "../components/ProductFilter";
+import ProductList from "../components/ProductList";
 
 const Homepage = () => {
   const [products, setProducts] = useState([]);
@@ -15,11 +15,11 @@ const Homepage = () => {
   const fetchProducts = async () => {
     try {
       setLoading(true);
-      const res = await axios.get('http://localhost:3001/api/products');
+      const res = await axios.get("http://localhost:3001/api/products");
       setProducts(res.data);
     } catch (err) {
-      console.error('제품 불러오기 실패:', err);
-      setError('제품 목록을 불러오지 못했습니다.');
+      console.error("제품 불러오기 실패:", err);
+      setError("제품 목록을 불러오지 못했습니다.");
     } finally {
       setLoading(false);
     }
@@ -50,8 +50,8 @@ const Homepage = () => {
             imageUrl: product.imageUrl,
             productName: product.name,
             brandName: product.brand,
-            averageRating: product.averageRating,
-            reviewCount: product.reviewCount,
+            averageRating: product.average_rating,
+            reviewCount: product.review_count,
           }))}
         />
       ) : (

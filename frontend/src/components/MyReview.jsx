@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { useAuth } from "../AuthContext";
 
-const MyReview = ({ userId }) => {
+const MyReview = () => {
+  const { user } = useAuth();
+  const userId = user?.id || user?.userid;
   const [myReviews, setMyReviews] = useState([]);
   const [editModeId, setEditModeId] = useState(null);
   const [editedContent, setEditedContent] = useState("");
@@ -8,26 +11,28 @@ const MyReview = ({ userId }) => {
 
   const [newProductId, setNewProductId] = useState("");
   const [newContent, setNewContent] = useState("");
+  const [reloadFlag, setReloadFlag] = useState(false);
 
   useEffect(() => {
     fetch(`http://localhost:5000/api/reviews/user/${userId}`)
       .then((res) => res.json())
       .then((data) => {
         setMyReviews(data);
-        const liked = new Set(data.filter(r => r.liked).map(r => r.id));
+        const liked = new Set(data.filter((r) => r.liked).map((r) => r.id));
         setLikedReviews(liked);
       })
       .catch((err) => console.error("리뷰 로딩 실패:", err));
-  }, [userId]);
+  }, [userId, reloadFlag]);
 
   const handleDelete = (reviewId) => {
     if (!window.confirm("정말 삭제하시겠습니까?")) return;
     fetch(`http://localhost:5000/api/reviews/${reviewId}`, {
       method: "DELETE",
     })
-      .then(() =>
-        setMyReviews((prev) => prev.filter((r) => r.id !== reviewId))
-      )
+      .then(() => {
+        // 삭제 후 강제 reload 트리거 → useEffect 재실행
+        setReloadFlag((prev) => !prev);
+      })
       .catch((err) => console.error("삭제 실패:", err));
   };
 
@@ -59,7 +64,7 @@ const MyReview = ({ userId }) => {
       .then((data) => {
         setLikedReviews((prev) => {
           const updated = new Set(prev);
-          const updatedReviews = myReviews.map(r =>
+          const updatedReviews = myReviews.map((r) =>
             r.id === reviewId
               ? { ...r, likeCount: r.likeCount + (data.toggled ? 1 : -1) }
               : r
@@ -86,12 +91,15 @@ const MyReview = ({ userId }) => {
       body: JSON.stringify({
         user_id: userId,
         product_id: newProductId,
-        content: newContent
-      })
+        content: newContent,
+      }),
     })
       .then((res) => res.json())
       .then((newReview) => {
-        setMyReviews(prev => [...prev, { ...newReview, likeCount: 0, liked: false }]);
+        setMyReviews((prev) => [
+          ...prev,
+          { ...newReview, likeCount: 0, liked: false },
+        ]);
         setNewProductId("");
         setNewContent("");
       })
@@ -102,7 +110,9 @@ const MyReview = ({ userId }) => {
     <div>
       <h2>내 리뷰</h2>
 
-      <div style={{ marginBottom: "20px", padding: 10, border: "1px solid #ddd" }}>
+      <div
+        style={{ marginBottom: "20px", padding: 10, border: "1px solid #ddd" }}
+      >
         <h4>📝 리뷰 작성</h4>
         <input
           type="text"
@@ -121,7 +131,10 @@ const MyReview = ({ userId }) => {
       </div>
 
       {myReviews.map((review) => (
-        <div key={review.id} style={{ borderBottom: "1px solid #ccc", padding: 10 }}>
+        <div
+          key={review.id}
+          style={{ borderBottom: "1px solid #ccc", padding: 10 }}
+        >
           <strong>{review.productName}</strong>
           {editModeId === review.id ? (
             <>
@@ -135,13 +148,18 @@ const MyReview = ({ userId }) => {
           ) : (
             <>
               <p>{review.content}</p>
-              <button onClick={() => {
-                setEditModeId(review.id);
-                setEditedContent(review.content);
-              }}>수정</button>
+              <button
+                onClick={() => {
+                  setEditModeId(review.id);
+                  setEditedContent(review.content);
+                }}
+              >
+                수정
+              </button>
               <button onClick={() => handleDelete(review.id)}>삭제</button>
               <button onClick={() => handleLikeToggle(review.id)}>
-                {likedReviews.has(review.id) ? "❤️" : "🤍"} 좋아요 ({review.likeCount})
+                {likedReviews.has(review.id) ? "❤️" : "🤍"} 좋아요 (
+                {review.likeCount})
               </button>
             </>
           )}
