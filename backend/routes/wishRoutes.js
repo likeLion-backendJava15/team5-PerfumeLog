@@ -11,4 +11,6 @@ router.post('/', WishController.addWish);
 // DELETE /api/wish
 router.delete('/', WishController.deleteWish);
 
+router.get('/:userId/:productId', WishController.isLiked);
+
 module.exports = router;
