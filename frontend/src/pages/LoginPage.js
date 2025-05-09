@@ -2,11 +2,16 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import LoginForm from '../components/LoginForm'; // LoginForm 컴포넌트 사용
+import { useAuth } from '../AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
   const [userid, setUserId] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
@@ -14,8 +19,9 @@ const LoginPage = () => {
         userid: userid,
         password: password
       });
+      login({ userid });
       alert(response.data.message);
-      // 로그인 성공 후 추가 작업 (예: 홈 페이지로 리디렉션 등)
+      navigate('/');
     } catch (err) {
       setError('로그인 실패. 아이디와 비밀번호를 확인하세요.');
     }
