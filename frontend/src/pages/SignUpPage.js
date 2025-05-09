@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import SignUpForm from '../components/SignUpForm'; // SignUpForm 컴포넌트 사용
+import { useNavigate } from 'react-router-dom';
 
 const SignupPage = () => {
   const [userId, setUserId] = useState('');
@@ -9,6 +10,7 @@ const SignupPage = () => {
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleSignup = async () => {
     if (password !== passwordConfirm) {
@@ -22,6 +24,9 @@ const SignupPage = () => {
         password: password
       });
       setSuccessMessage(response.data.message);
+      setTimeout(() => {
+        navigate('/login');
+      }, 1000);
       setError('');
       setUserId('');
       setPassword('');
