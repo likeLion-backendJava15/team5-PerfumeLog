@@ -146,3 +146,12 @@ exports.updateReview = async (data) => {
 
   return result;
 };
+
+// 내리뷰
+exports.getReviewsByUserId = async (userId) => {
+  const [rows] = await db.query(
+    `SELECT * FROM REVIEW WHERE user_id = ? ORDER BY created_at DESC`,
+    [userId]
+  );
+  return rows;
+};
