@@ -57,6 +57,7 @@
 ### 🛠 Version Control & Collaboration
 
 <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white"> <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white"> <img src="https://img.shields.io/badge/Notion-%23000000.svg?style=for-the-badge&logo=notion&logoColor=white"> <img src="https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white">
+[🔗 Notion Project Page](https://yennies.notion.site/PerfumeLog-1d938212968b8044bfd1e0e8cea5720c)
 
 ---
 
