@@ -7,16 +7,17 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const stored = localStorage.getItem('user');
+
     try {
-      const stored = localStorage.getItem('user');
-      if (stored && stored !== "undefined") {
-        setUser(JSON.parse(stored));
+      if (stored && stored !== 'undefined') {
+        const parsed = JSON.parse(stored);
+        setUser(parsed);
       }
     } catch (err) {
-      console.error("⚠️ localStorage 파싱 오류:", err);
-      localStorage.removeItem('user'); // 잘못된 값 제거
+      console.error('로컬스토리지 유저 파싱 실패:', err);
     } finally {
-      setLoading(false);
+      setLoading(false); // ✅ 무조건 로딩 끝냄
     }
   }, []);
   
