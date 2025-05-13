@@ -20,6 +20,7 @@ export const AuthProvider = ({ children }) => {
       setLoading(false); // ✅ 무조건 로딩 끝냄
     }
   }, []);
+  
 
   const login = (userData) => {
     console.log("login()에 전달된 userData:", userData);
