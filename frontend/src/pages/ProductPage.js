@@ -10,6 +10,7 @@ function ProductPage() {
   const [isLiked, setIsLiked] = useState(false);
   const [reviews, setReviews] = useState([]);
   const [reviewStats, setReviewStats] = useState(null);
+  const [reloadFlag, setReloadFlag] = useState(false);
 
   const { user } = useAuth();
   const userId = user?.id ?? null;
@@ -49,7 +50,7 @@ function ProductPage() {
         .then((data) => setIsLiked(data.isLiked))
         .catch((err) => console.error("찜 상태 로드 실패: ", err));
     }
-  }, [id, userId]);
+  }, [id, userId, reloadFlag]);
 
   const toggleLike = () => {
     if(!userId) {
@@ -88,6 +89,8 @@ function ProductPage() {
           reviews={reviews}
           currentUserId={userId}
           reviewStats={reviewStats}
+          reloadFlag={reloadFlag}
+          setReloadFlag={setReloadFlag}
         />
       )}
     </div>

@@ -100,3 +100,26 @@ exports.getReviewsByUserId = async (req, res) => {
     res.status(500).json({ error: '사용자 리뷰 조회 실패' });
   }
 };
+
+// 관리자 전용 전체 리뷰 조회
+exports.getAllReviewsAsAdmin = async (req, res) => {
+  try {
+    const reviews = await reviewModel.getAllReviewsWithUser();
+    console.log("✅ 전체 리뷰 조회 결과:", reviews);
+    const dto = reviews.map(toReviewDTO);
+    res.status(200).json(dto);
+  } catch (err) {
+    console.error("전체 리뷰 조회 실패:", err);
+    res.status(500).json({ error: '전체 리뷰 조회 실패' });
+  }
+};
+
+exports.adminDeleteReview = async (req, res) => {
+  try {
+    const result = await reviewModel.adminDeleteReview(req.params.reviewId);
+    res.status(200).json({ message: "삭제 완료" });
+  } catch (err) {
+    console.error("❌ 관리자 리뷰 삭제 실패:", err);
+    res.status(500).json({ error: "리뷰 삭제 실패" });
+  }
+};

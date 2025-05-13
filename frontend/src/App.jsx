@@ -17,6 +17,7 @@ import MyReview from "./pages/MyReview";
 import WishList from "./pages/WishList";
 import SearchResult from "./pages/SearchResult";
 import { AuthProvider } from "./AuthContext";
+import AdminReview from "./pages/AdminReviewPage";
 
 function AppContent() {
   const location = useLocation();
@@ -36,6 +37,7 @@ function AppContent() {
           <Route path="/myreviews" element={<MyReview />} />
           <Route path="/wishlist" element={<WishList />} />
           <Route path="/search" element={<SearchResult />} />
+          <Route path="/admin/reviews" element={<AdminReview />} />
         </Routes>
       </div>
     </div>

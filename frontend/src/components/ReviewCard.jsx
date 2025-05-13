@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-export default function ReviewCard({ review, userId }) {
+export default function ReviewCard({ review, userId, onReload }) {
   const [expanded, setExpanded] = useState(false);
   const [liked, setLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);

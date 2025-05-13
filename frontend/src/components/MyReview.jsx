@@ -14,7 +14,7 @@ const MyReview = () => {
   const [reloadFlag, setReloadFlag] = useState(false);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/reviews/user/${userId}`)
+    fetch(`http://localhost:3001/api/reviews/user/${userId}`)
       .then((res) => res.json())
       .then((data) => {
         setMyReviews(data);
@@ -26,7 +26,7 @@ const MyReview = () => {
 
   const handleDelete = (reviewId) => {
     if (!window.confirm("정말 삭제하시겠습니까?")) return;
-    fetch(`http://localhost:5000/api/reviews/${reviewId}`, {
+    fetch(`http://localhost:3001/api/reviews/${reviewId}/${userId}`, {
       method: "DELETE",
     })
       .then(() => {
@@ -37,10 +37,19 @@ const MyReview = () => {
   };
 
   const handleUpdate = (reviewId) => {
-    fetch(`http://localhost:5000/api/reviews/${reviewId}`, {
+    const targetReview = myReviews.find((r) => r.id === reviewId);
+    if (!targetReview) return;
+
+    fetch(`http://localhost:3001/api/reviews/${reviewId}/${userId}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ content: editedContent }),
+      body: JSON.stringify({
+        rating: targetReview.rating,
+        longevity: targetReview.longevity,
+        sillage: targetReview.sillage,
+        gender: targetReview.gender,
+        content: editedContent,
+      }),
     })
       .then((res) => res.json())
       .then(() => {
@@ -55,7 +64,7 @@ const MyReview = () => {
   };
 
   const handleLikeToggle = (reviewId) => {
-    fetch(`http://localhost:5000/api/review-likes/${reviewId}/like`, {
+    fetch(`http://localhost:3001/api/review-likes/${reviewId}/like`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ user_id: userId }),
@@ -85,7 +94,7 @@ const MyReview = () => {
   const handleAddReview = () => {
     if (!newProductId.trim() || !newContent.trim()) return;
 
-    fetch("http://localhost:5000/api/reviews", {
+    fetch("http://localhost:3001/api/reviews", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

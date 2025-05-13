@@ -50,8 +50,8 @@ const Homepage = () => {
             imageUrl: product.imageUrl,
             productName: product.name,
             brandName: product.brand,
-            averageRating: product.average_rating,
-            reviewCount: product.review_count,
+            averageRating: product.averageRating,
+            reviewCount: product.reviewCount,
           }))}
         />
       ) : (

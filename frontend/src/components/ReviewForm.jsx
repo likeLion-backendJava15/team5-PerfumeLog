@@ -10,7 +10,7 @@ export default function ReviewForm({ userId, product }) {
     rating: 0,
     longevity: 2,
     sillage: 2,
-    gender: 2,
+    gender: 1,
     content: "",
   });
 

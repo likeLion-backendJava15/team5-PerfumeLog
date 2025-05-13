@@ -13,6 +13,8 @@ function ProductDetail({
   reviews,
   currentUserId,
   reviewStats,
+  reloadFlag,
+  setReloadFlag, 
 }) {
   const navigate = useNavigate();
   const location = useLocation();
@@ -44,12 +46,12 @@ function ProductDetail({
               <div className="d-flex align-items-center">
                 <Star className="text-warning me-2" fill="#FFD700" />
                 <span>
-                  {product.average_rating != null
-                    ? Number(product.average_rating).toFixed(1)
+                  {product.averageRating != null
+                    ? Number(product.averageRating).toFixed(1)
                     : "0.0"}
                 </span>
                 <span className="text-secondary ms-2">
-                  리뷰({product.review_count || 0})
+                  리뷰({product.reviewCount || 0})
                 </span>
               </div>
             </div>
@@ -138,12 +140,13 @@ function ProductDetail({
           </div>
         ) : (
           <>
-            <ReviewStats productId={product.id} />
+            <ReviewStats productId={product.id} reloadFlag={reloadFlag} />
             <hr style={{ borderTop: "2px solid #9dd6cd", margin: "2rem 0" }} />
             <ReviewList
               reviews={reviews}
               productId={product.id}
               userId={currentUserId}
+              onReload={() => setReloadFlag(prev => !prev)}
             />
           </>
         )}

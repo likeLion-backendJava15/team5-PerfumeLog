@@ -56,13 +56,27 @@ exports.createReview = async (review) => {
 
 // 리뷰 삭제
 exports.deleteReview = async (reviewId, userId) => {
-  const [result] = await db.query(
-    `
-        DELETE FROM REVIEW WHERE id = ? AND user_id = ?
-      `,
-    [reviewId, userId]
-  );
-  return result.affectedRows > 0;
+  const conn = await db.getConnection();
+  try {
+    await conn.beginTransaction();
+
+    // 리뷰 좋아요 먼저 삭제
+    await conn.query(`DELETE FROM REVIEW_LIKE WHERE review_id = ?`, [reviewId]);
+
+    // 리뷰 삭제
+    await conn.query(`DELETE FROM REVIEW WHERE id = ? AND user_id = ?`, [
+      reviewId,
+      userId,
+    ]);
+
+    await conn.commit();
+    return true;
+  } catch (err) {
+    await conn.rollback();
+    throw err;
+  } finally {
+    conn.release();
+  }
 };
 
 // 리뷰 통계
@@ -121,7 +135,7 @@ exports.getReviewStatsByProductId = async (productId) => {
 
   return {
     ...rows[0],
-    distribution: distributionRows
+    distribution: distributionRows,
   };
 };
 
@@ -150,8 +164,42 @@ exports.updateReview = async (data) => {
 // 내리뷰
 exports.getReviewsByUserId = async (userId) => {
   const [rows] = await db.query(
-    `SELECT * FROM REVIEW WHERE user_id = ? ORDER BY created_at DESC`,
+    `SELECT r.*, u.userid, p.name AS product_name, b.name AS brand_name
+     FROM REVIEW r
+     JOIN USER u ON r.user_id = u.id
+     JOIN PRODUCT p ON r.product_id = p.id
+     JOIN BRAND b ON p.brand_id = b.id
+     WHERE r.user_id = ?
+     ORDER BY r.created_at DESC`,
     [userId]
   );
   return rows;
+};
+
+exports.getAllReviewsWithUser = async () => {
+  const [rows] = await db.query(`
+    SELECT r.*, u.userid, p.name AS product_name, b.name AS brand_name
+    FROM REVIEW r
+    LEFT JOIN USER u ON r.user_id = u.id
+    LEFT JOIN PRODUCT p ON r.product_id = p.id
+    LEFT JOIN BRAND b ON p.brand_id = b.id
+    ORDER BY r.created_at DESC
+  `);
+  return rows; 
+};
+
+exports.adminDeleteReview = async (reviewId) => {
+  const conn = await db.getConnection();
+  try {
+    await conn.beginTransaction();
+    await conn.query(`DELETE FROM REVIEW_LIKE WHERE review_id = ?`, [reviewId]);
+    await conn.query(`DELETE FROM REVIEW WHERE id = ?`, [reviewId]);
+    await conn.commit();
+    return true;
+  } catch (err) {
+    await conn.rollback();
+    throw err;
+  } finally {
+    conn.release();
+  }
 };

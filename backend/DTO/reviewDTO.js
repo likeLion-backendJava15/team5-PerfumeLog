@@ -8,6 +8,8 @@ exports.toReviewDTO = (review) => ({ // 일반 리뷰 DTO
   gender: review.gender,
   content: review.content,
   createdAt: review.created_at,
+  productName: review.product_name ?? '정보 없음',
+  brandName: review.brand_name ?? '정보 없음',
 });
 
 // 통계 DTO
