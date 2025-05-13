@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../index.css";
 
-export default function ReviewStats({ productId }) {
+export default function ReviewStats({ productId, reloadFlag }) {
   const [stats, setStats] = useState(null);
   const [distribution, setDistribution] = useState([0, 0, 0, 0, 0]);
 
@@ -23,7 +23,7 @@ export default function ReviewStats({ productId }) {
         }
         setDistribution(dist);
       });
-  }, [productId]);
+  }, [productId, reloadFlag]);
 
   if (!stats) return <div>로딩 중...</div>;
 

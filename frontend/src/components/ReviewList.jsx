@@ -1,14 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ReviewCard from "./ReviewCard";
 
-export default function ReviewList({ reviews, productId, userId }) {
-  if (!reviews?.length) return <p className="text-muted">작성된 리뷰가 없습니다.</p>;
+export default function ReviewList({ productId, userId, sort, onReload }) {
+  const [reviews, setReviews] = useState([]);
+
+  useEffect(() => {
+    if (!productId) return;
+
+    fetch(`http://localhost:3001/api/reviews/${productId}?sort=${sort}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setReviews(data);
+      })
+      .catch((err) => {
+        console.error("리뷰 로드 실패:", err);
+      });
+  }, [productId, sort, onReload]); 
 
   return (
-    <div className="pt-3">
-      {reviews.map((review) => (
-        <ReviewCard key={review.id} review={review} userId={userId} />
-      ))}
+    <div>
+      {reviews.length === 0 ? (
+        <p>등록된 리뷰가 없습니다.</p>
+      ) : (
+        reviews.map((review) => (
+          <ReviewCard
+            key={review.id}
+            review={review}
+            userId={userId}
+            onReload={onReload}
+          />
+        ))
+      )}
     </div>
   );
 }

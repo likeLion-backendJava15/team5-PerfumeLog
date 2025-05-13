@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-export default function ReviewCard({ review, userId }) {
+export default function ReviewCard({ review, userId, onReload }) {
   const [expanded, setExpanded] = useState(false);
   const [liked, setLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
@@ -35,6 +35,8 @@ export default function ReviewCard({ review, userId }) {
         if (typeof data.toggled === "boolean") {
           setLiked(data.toggled);
           setLikeCount((prev) => prev + (data.toggled ? 1 : -1));
+
+          if (onReload) onReload();
         } else {
           console.warn("서버 응답 오류:", data);
         }

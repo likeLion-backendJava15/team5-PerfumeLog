@@ -38,7 +38,9 @@ const ProductCard = ({
             <div className="d-flex align-items-center text-warning">
               <Star size={16} fill="#F0C24D" strokeWidth={1} />
               <span className="ms-1">
-                {averageRating != null ? Number(averageRating).toFixed(1) : "0.0"}
+                {!isNaN(parseFloat(averageRating))
+                  ? parseFloat(averageRating).toFixed(1)
+                  : "0.0"}
               </span>
             </div>
             <div>
