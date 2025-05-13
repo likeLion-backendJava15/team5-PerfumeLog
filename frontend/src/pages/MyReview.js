@@ -17,6 +17,7 @@ const MyReview = () => {
     fetch(`http://localhost:3001/api/reviews/user/${userId}`)
       .then((res) => res.json())
       .then((data) => {
+        console.log("내 리뷰 데이터 확인:", data);
         setMyReviews(data);
         const liked = new Set(data.filter((r) => r.liked).map((r) => r.id));
         setLikedReviews(liked);

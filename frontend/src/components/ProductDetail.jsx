@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate, useLocation } from "react-router-dom";
 import ReviewList from "../components/ReviewList";
 import ReviewStats from "./ReviewStats";
+import ReviewFilter from "../components/ReviewFilter";
 
 function ProductDetail({
   product,
@@ -14,7 +15,7 @@ function ProductDetail({
   currentUserId,
   reviewStats,
   reloadFlag,
-  setReloadFlag, 
+  setReloadFlag,
 }) {
   const navigate = useNavigate();
   const location = useLocation();
@@ -28,6 +29,8 @@ function ProductDetail({
       state: { returnToReviewTab: true },
     });
   };
+
+  const [sortOption, setSortOption] = useState("recent"); // 정렬 상태
 
   return (
     <div className="container py-4">
@@ -142,11 +145,16 @@ function ProductDetail({
           <>
             <ReviewStats productId={product.id} reloadFlag={reloadFlag} />
             <hr style={{ borderTop: "2px solid #9dd6cd", margin: "2rem 0" }} />
+            <ReviewFilter
+              sortOption={sortOption}
+              setSortOption={setSortOption}
+            />
+
             <ReviewList
-              reviews={reviews}
               productId={product.id}
               userId={currentUserId}
-              onReload={() => setReloadFlag(prev => !prev)}
+              sort={sortOption} 
+              onReload={() => setReloadFlag((prev) => !prev)}
             />
           </>
         )}

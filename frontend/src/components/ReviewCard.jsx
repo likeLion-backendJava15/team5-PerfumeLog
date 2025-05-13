@@ -35,6 +35,8 @@ export default function ReviewCard({ review, userId, onReload }) {
         if (typeof data.toggled === "boolean") {
           setLiked(data.toggled);
           setLikeCount((prev) => prev + (data.toggled ? 1 : -1));
+
+          if (onReload) onReload();
         } else {
           console.warn("서버 응답 오류:", data);
         }
