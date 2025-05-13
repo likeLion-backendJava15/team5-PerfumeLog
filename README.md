@@ -107,145 +107,147 @@
   </tbody>
 </table>
 
-
 ### 🗂️ 파일별 역할 분배
 
-| 팀원 | 프론트 담당 컴포넌트 | 백엔드 담당 파일 |
-| --- | --- | --- |
-| 김진아 | `Header.jsx`, `ProductList.jsx`, `WishList.jsx`, `LoginForm.jsx`, `SignUpForm.jsx`, `LoginPage.js`, `SignUpPage.js` | `productController.js`, `productModel.js`, `productRoutes.js`, `productDTO.js`, `wishController.js`, `wishModel.js`, `wishDTO.js`, `userController.js`, `userModel.js`, `userRoutes.js`, `userDTO.js` |
-| 황승미 | `ProductCard.jsx`, `ProductDetail.jsx` | `productNoteController.js`, `productNoteModel.js`, `productNoteRoutes.js`, `productNoteDTO.js`, `wishController.js`, `wishModel.js`, `wishRoutes.js`   |
-| 윤선현 | `ProductFilter.jsx`, `HomePage.js` | `noteController.js`, `noteModel.js`, `noteRoutes.js`, `noteDTO.js` |
-| 이예은 | `ReviewForm.jsx`, `ReviewStats.jsx`, `ReviewCard.jsx`, `ReviewList.jsx`, `ReviewPage.js`, `LoginForm.jsx`, `SignUpForm.jsx`, `LoginPage.js`, `SignUpPage.js` | `reviewController.js`, `reviewModel.js`, `reviewRoutes.js`, `reviewDTO.js`, `userController.js`, `userModel.js`, `userRoutes.js`, `userDTO.js` |
-| 윤형일 | `MyReview.js`, `MyPage.js` | `reviewLikeController.js`, `reviewLikeModel.js`, `reviewLikeRoutes.js`, `reviewLikeDTO.js` |
-
+| 팀원   | 프론트 담당 컴포넌트                                                                                                                                                                           | 백엔드 담당 파일                                                                                                                                                                                      |
+| ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 김진아 | `Header.jsx`, `ProductList.jsx`, `WishList.jsx`, `LoginForm.jsx`, `SignUpForm.jsx`, `LoginPage.js`, `SignUpPage.js`                                                                            | `productController.js`, `productModel.js`, `productRoutes.js`, `productDTO.js`, `wishController.js`, `wishModel.js`, `wishDTO.js`, `userController.js`, `userModel.js`, `userRoutes.js`, `userDTO.js` |
+| 황승미 | `ProductCard.jsx`, `ProductDetail.jsx`                                                                                                                                                         | `productNoteController.js`, `productNoteModel.js`, `productNoteRoutes.js`, `productNoteDTO.js`, `wishController.js`, `wishModel.js`, `wishRoutes.js`                                                  |
+| 윤선현 | `ProductFilter.jsx`, `HomePage.js`                                                                                                                                                             | `noteController.js`, `noteModel.js`, `noteRoutes.js`, `noteDTO.js`                                                                                                                                    |
+| 이예은 | `ReviewForm.jsx`, `ReviewStats.jsx`, `ReviewCard.jsx`, `ReviewList.jsx`, `ReviewPage.js`, `ReviewFilter.jsx`,`LoginForm.jsx`, `SignUpForm.jsx`, `LoginPage.js`, `SignUpPage.js`, `MyReview.js` | `reviewController.js`, `reviewModel.js`, `reviewRoutes.js`, `reviewDTO.js`, `userController.js`, `userModel.js`, `userRoutes.js`, `userDTO.js`                                                        |
+| 윤형일 | `MyReview.js`, `MyPage.js`                                                                                                                                                                     | `reviewLikeController.js`, `reviewLikeModel.js`, `reviewLikeRoutes.js`, `reviewLikeDTO.js`                                                                                                            |
 
 ---
 
 ## 🚀 실행 방법
 
 ### 1. DB 설정
+
 1. data 폴더에 있는 csv 파일 다운로드
-    - `brand.csv`
-    - `fragnance_family.csv`
-    - `note.csv`
-    - `product_note.csv`
-    - `sample.csv`
+   - `brand.csv`
+   - `fragnance_family.csv`
+   - `note.csv`
+   - `product_note.csv`
+   - `sample.csv`
 2. mysql 에서 `SHOW VARIABLES LIKE 'secure_file_priv';` 에서 나온 폴더에 perfume_data/ 폴더 생성 후 다운로드 받은 파일들 저장 (예 : `C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/perfume_data/brand.csv'`
 3. mysql에서 다음 sql 실행
-    ```sql
-    CREATE TABLE USER (
-      id INT AUTO_INCREMENT PRIMARY KEY,
-      userid VARCHAR(255) NOT NULL UNIQUE,
-      password VARCHAR(255) NOT NULL
-    );
-    CREATE TABLE BRAND (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        name VARCHAR(100) NOT NULL UNIQUE
-    );
-    CREATE TABLE FRAGRANCE_FAMILY (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        name VARCHAR(100) NOT NULL UNIQUE
-    );
 
-    CREATE TABLE NOTE (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        name VARCHAR(100) NOT NULL UNIQUE
-    );
+   ```sql
+   CREATE TABLE USER (
+     id INT AUTO_INCREMENT PRIMARY KEY,
+     userid VARCHAR(255) NOT NULL UNIQUE,
+     password VARCHAR(255) NOT NULL
+   );
+   CREATE TABLE BRAND (
+       id INT AUTO_INCREMENT PRIMARY KEY,
+       name VARCHAR(100) NOT NULL UNIQUE
+   );
+   CREATE TABLE FRAGRANCE_FAMILY (
+       id INT AUTO_INCREMENT PRIMARY KEY,
+       name VARCHAR(100) NOT NULL UNIQUE
+   );
 
-    CREATE TABLE PRODUCT (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        name VARCHAR(255) NOT NULL,
-        brand_id INT NOT NULL,
-        family_id INT NOT NULL,
-        image_url TEXT NOT NULL,
-        price INT NOT NULL,
-        description_url TEXT NOT NULL,
-        FOREIGN KEY (brand_id) REFERENCES BRAND(id),
-        FOREIGN KEY (family_id) REFERENCES FRAGRANCE_FAMILY(id)
-    );
+   CREATE TABLE NOTE (
+       id INT AUTO_INCREMENT PRIMARY KEY,
+       name VARCHAR(100) NOT NULL UNIQUE
+   );
 
-    CREATE TABLE PRODUCT_NOTE (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        product_id INT,
-        note_id INT,
-        type ENUM('TOP', 'MIDDLE', 'BASE') NOT NULL,
-        FOREIGN KEY (product_id) REFERENCES PRODUCT(id),
-        FOREIGN KEY (note_id) REFERENCES NOTE(id)
-    );
+   CREATE TABLE PRODUCT (
+       id INT AUTO_INCREMENT PRIMARY KEY,
+       name VARCHAR(255) NOT NULL,
+       brand_id INT NOT NULL,
+       family_id INT NOT NULL,
+       image_url TEXT NOT NULL,
+       price INT NOT NULL,
+       description_url TEXT NOT NULL,
+       FOREIGN KEY (brand_id) REFERENCES BRAND(id),
+       FOREIGN KEY (family_id) REFERENCES FRAGRANCE_FAMILY(id)
+   );
 
-    CREATE TABLE REVIEW (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        user_id INT,
-        product_id INT,
-        rating INT CHECK (rating BETWEEN 1 AND 5),
-        longevity ENUM('매우약함', '약함', '중간', '강함', '아주강함') NOT NULL,
-        sillage ENUM('매우약함', '약함', '중간', '강함', '아주강함') NOT NULL,
-        gender ENUM('여성적', '중성적', '남성적') NOT NULL,
-        content TEXT NOT NULL,
-        created_at DATETIME DEFAULT NOW(),
-        FOREIGN KEY (user_id) REFERENCES USER(id),
-        FOREIGN KEY (product_id) REFERENCES PRODUCT(id)
-    );
+   CREATE TABLE PRODUCT_NOTE (
+       id INT AUTO_INCREMENT PRIMARY KEY,
+       product_id INT,
+       note_id INT,
+       type ENUM('TOP', 'MIDDLE', 'BASE') NOT NULL,
+       FOREIGN KEY (product_id) REFERENCES PRODUCT(id),
+       FOREIGN KEY (note_id) REFERENCES NOTE(id)
+   );
 
-    CREATE TABLE WISH (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        user_id INT,
-        product_id INT,
-        created_at DATETIME DEFAULT NOW(),
-        UNIQUE(user_id, product_id),
-        FOREIGN KEY (user_id) REFERENCES USER(id),
-        FOREIGN KEY (product_id) REFERENCES PRODUCT(id)
-    );
+   CREATE TABLE REVIEW (
+       id INT AUTO_INCREMENT PRIMARY KEY,
+       user_id INT,
+       product_id INT,
+       rating INT CHECK (rating BETWEEN 1 AND 5),
+       longevity ENUM('매우약함', '약함', '중간', '강함', '아주강함') NOT NULL,
+       sillage ENUM('매우약함', '약함', '중간', '강함', '아주강함') NOT NULL,
+       gender ENUM('여성적', '중성적', '남성적') NOT NULL,
+       content TEXT NOT NULL,
+       created_at DATETIME DEFAULT NOW(),
+       FOREIGN KEY (user_id) REFERENCES USER(id),
+       FOREIGN KEY (product_id) REFERENCES PRODUCT(id)
+   );
 
-    CREATE TABLE REVIEW_LIKE (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        user_id INT,
-        review_id INT,
-        created_at DATETIME DEFAULT NOW(),
-        UNIQUE(user_id, review_id),
-        FOREIGN KEY (user_id) REFERENCES USER(id),
-        FOREIGN KEY (review_id) REFERENCES REVIEW(id)
-    );
-    ```
-    ```sql
-    LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/perfume_data/brand.csv'
-    INTO TABLE brand
-    FIELDS TERMINATED BY ',' ENCLOSED BY '"' 
-    LINES TERMINATED BY '\r\n'
-    IGNORE 1 ROWS
-    (id, name);
+   CREATE TABLE WISH (
+       id INT AUTO_INCREMENT PRIMARY KEY,
+       user_id INT,
+       product_id INT,
+       created_at DATETIME DEFAULT NOW(),
+       UNIQUE(user_id, product_id),
+       FOREIGN KEY (user_id) REFERENCES USER(id),
+       FOREIGN KEY (product_id) REFERENCES PRODUCT(id)
+   );
 
-    LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/perfume_data/fragrance_family.csv'
-    INTO TABLE fragrance_family
-    FIELDS TERMINATED BY ',' ENCLOSED BY '"' 
-    LINES TERMINATED BY '\r\n'
-    IGNORE 1 ROWS
-    (id, name);
+   CREATE TABLE REVIEW_LIKE (
+       id INT AUTO_INCREMENT PRIMARY KEY,
+       user_id INT,
+       review_id INT,
+       created_at DATETIME DEFAULT NOW(),
+       UNIQUE(user_id, review_id),
+       FOREIGN KEY (user_id) REFERENCES USER(id),
+       FOREIGN KEY (review_id) REFERENCES REVIEW(id)
+   );
+   ```
 
-    LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/perfume_data/note.csv'
-    INTO TABLE note
-    FIELDS TERMINATED BY ',' ENCLOSED BY '"' 
-    LINES TERMINATED BY '\r\n'
-    IGNORE 1 ROWS
-    (id, name);
+   ````sql
+   LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/perfume_data/brand.csv'
+   INTO TABLE brand
+   FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+   LINES TERMINATED BY '\r\n'
+   IGNORE 1 ROWS
+   (id, name);
 
-    LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/perfume_data/sample.csv'
-    INTO TABLE product
-    FIELDS TERMINATED BY ',' ENCLOSED BY '"'
-    LINES TERMINATED BY '\r\n'
-    IGNORE 1 ROWS
-    (id, name, brand_id, @family_id, @image_url, price, @description_url)
-    SET 
-      family_id = NULLIF(@family_id, ''),
-      image_url = NULLIF(@image_url, ''),
-      description_url = NULLIF(@description_url, '');
+   LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/perfume_data/fragrance_family.csv'
+   INTO TABLE fragrance_family
+   FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+   LINES TERMINATED BY '\r\n'
+   IGNORE 1 ROWS
+   (id, name);
 
-    LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/perfume_data/product_note.csv'
-    INTO TABLE product_note
-    FIELDS TERMINATED BY ',' ENCLOSED BY '"' 
-    LINES TERMINATED BY '\r\n'
-    IGNORE 1 ROWS
-    (product_id, note_id, type);```
+   LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/perfume_data/note.csv'
+   INTO TABLE note
+   FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+   LINES TERMINATED BY '\r\n'
+   IGNORE 1 ROWS
+   (id, name);
+
+   LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/perfume_data/sample.csv'
+   INTO TABLE product
+   FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+   LINES TERMINATED BY '\r\n'
+   IGNORE 1 ROWS
+   (id, name, brand_id, @family_id, @image_url, price, @description_url)
+   SET
+     family_id = NULLIF(@family_id, ''),
+     image_url = NULLIF(@image_url, ''),
+     description_url = NULLIF(@description_url, '');
+
+   LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/perfume_data/product_note.csv'
+   INTO TABLE product_note
+   FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+   LINES TERMINATED BY '\r\n'
+   IGNORE 1 ROWS
+   (product_id, note_id, type);```
+   ````
 
 ### 2. 환경 변수 설정
 
